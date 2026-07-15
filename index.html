@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
+
+  <title>Welcome Festival Map</title>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <script src="js/map.js" defer></script>
+</head>
+
+<body>
+  <header class="site-header">
+    <h1 class="site-title">
+      Welcome Festival Map
+    </h1>
+  </header>
+
+  <main>
+    <!-- 会場タブ -->
+    <nav class="venue-tabs" aria-label="会場選択">
+      <button
+        class="venue-tab is-active"
+        type="button"
+        data-venue="oic"
+        aria-selected="true"
+      >
+        OIC
+      </button>
+
+      <button
+        class="venue-tab"
+        type="button"
+        data-venue="kic"
+        aria-selected="false"
+      >
+        KIC
+      </button>
+    </nav>
+
+    <!-- 検索 -->
+    <section class="search-section">
+      <label class="search-box">
+        <img
+  class="search-icon-image"
+  src="images/search.png"
+  alt=""
+  aria-hidden="true"
+>
+
+        <input
+          id="organisationSearch"
+          type="search"
+          placeholder="Search organisation"
+          autocomplete="off"
+        >
+      </label>
+
+      <p
+        id="searchMessage"
+        class="search-message"
+        aria-live="polite"
+      ></p>
+    </section>
+
+    <!-- 地図 -->
+    <section class="map-section">
+      <!-- 階数切り替え -->
+      <div class="floor-switch" aria-label="階数選択">
+        <button
+          class="floor-button"
+          type="button"
+          data-floor="1"
+        >
+          1F
+        </button>
+
+        <button
+          class="floor-button is-active"
+          type="button"
+          data-floor="3"
+        >
+          3F
+        </button>
+      </div>
+
+      <div class="map-viewport" id="mapViewport">
+        <div class="map-canvas" id="mapCanvas">
+          <!-- JavaScriptで地図を表示します -->
+        </div>
+      </div>
+
+      <!-- 拡大縮小 -->
+      <div class="zoom-controls">
+        <button
+            id="zoomInButton"
+            class="zoom-button zoom-in-button"
+            type="button"
+            aria-label="Zoom in"
+            >
+            ＋
+        </button>
+
+        <button
+          id="zoomOutButton"
+          class="zoom-button"
+          type="button"
+          aria-label="地図を縮小"
+        >
+          −
+        </button>
+      </div>
+    </section>
+
+    <!-- カテゴリー -->
+    <nav
+      class="category-nav"
+      aria-label="団体カテゴリー"
+    >
+      <button
+        class="category-button"
+        type="button"
+        data-category="sports"
+      >
+        <img
+  class="category-icon-image"
+  src="images/sports.png"
+  alt=""
+  aria-hidden="true"
+>
+
+<span>Sports</span>
+      </button>
+
+      <button
+        class="category-button"
+        type="button"
+        data-category="culture"
+        >
+        <img
+            class="category-icon-image"
+            src="images/culture.png"
+            alt=""
+            aria-hidden="true"
+        >
+        <span>Culture</span>
+        </button>
+
+      <button
+        class="category-button"
+        type="button"
+        data-category="academic"
+        >
+        <img
+            class="category-icon-image"
+            src="images/academic.png"
+            alt=""
+            aria-hidden="true"
+        >
+
+        <span>Academic</span>
+        </button>
+
+      <button
+        class="category-button"
+        type="button"
+        data-category="volunteering"
+        >
+        <img
+            class="category-icon-image"
+            src="images/volunteering.png"
+            alt=""
+            aria-hidden="true"
+        >
+
+        <span>Volunteering</span>
+        </button>
+    </nav>
+  </main>
+
+  <!-- 部屋情報ポップアップ -->
+  <div
+    id="roomPopup"
+    class="popup-overlay"
+    hidden
+  >
+    <section
+      class="room-popup"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="popupRoomName"
+    >
+      <button
+        id="closePopupButton"
+        class="popup-close"
+        type="button"
+        aria-label="ポップアップを閉じる"
+      >
+        ×
+      </button>
+
+      <h2 id="popupRoomName" class="popup-title">
+        Room
+      </h2>
+
+      <p id="popupCondition" class="popup-condition"></p>
+
+      <div
+        id="popupOrganisationList"
+        class="organisation-list"
+      ></div>
+
+      <a
+        id="roomPageLink"
+        class="room-link-button"
+        href="room.html"
+      >
+        Go to room
+      </a>
+    </section>
+  </div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>Room page</title>
+</head>
+
+<body>
+  <h1 id="roomName">This is a room page</h1>
+
+  <p>This is a room page.</p>
+
+  <a href="index.html">
+    Back to map
+  </a>
+
+  <script>
+    "use strict";
+
+    const params =
+      new URLSearchParams(window.location.search);
+
+    const roomName = params.get("name");
+
+    if (roomName) {
+      document.querySelector("#roomName").textContent =
+        roomName;
+    }
+  </script>
+</body>
+</html>

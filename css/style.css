@@ -1,0 +1,538 @@
+/* =========================
+   基本設定
+========================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --green: #64ad70;
+  --green-dark: #398e4c;
+  --green-light: #c8dac8;
+
+  --red: #dc3021;
+  --red-dark: #a91e15;
+
+  --background: #ffffff;
+  --map-background: #eeeeee;
+  --panel: #dddddd;
+
+  --text: #111111;
+  --muted-text: #777777;
+
+  --border-radius-large: 28px;
+  --border-radius-medium: 18px;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+  color: var(--text);
+  background: var(--background);
+  font-family:
+    Arial,
+    "Noto Sans JP",
+    sans-serif;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  color: inherit;
+  cursor: pointer;
+}
+
+button,
+input {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* =========================
+   ヘッダー
+========================= */
+
+.site-header {
+  padding: 24px 20px 16px;
+}
+
+.site-title {
+  margin: 0;
+  font-size: clamp(2rem, 9vw, 3rem);
+  line-height: 1.05;
+  text-align: center;
+}
+
+/* =========================
+   OIC / KICタブ
+========================= */
+
+.venue-tabs {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: calc(100% - 40px);
+  max-width: 560px;
+  margin: 14px auto 0;
+  border-bottom: 3px solid #111111;
+}
+
+.venue-tab {
+  position: relative;
+  padding: 14px 10px 16px;
+  border: 0;
+  background: transparent;
+  color: #bdbdbd;
+  font-size: clamp(2.1rem, 12vw, 3.6rem);
+  font-weight: 800;
+}
+
+.venue-tab::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -3px;
+  left: 0;
+  height: 5px;
+  background: transparent;
+}
+
+.venue-tab.is-active {
+  color: #000000;
+}
+
+.venue-tab.is-active::after {
+  background: #159425;
+}
+
+/* =========================
+   検索欄
+========================= */
+
+.search-section {
+  width: calc(100% - 60px);
+  max-width: 500px;
+  margin: 38px auto 30px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 64px;
+  padding: 0 22px;
+  border-radius: 24px;
+  background: #dddddd;
+}
+
+.search-icon-image {
+  display: block;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+
+.search-box input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-size: 1rem;
+}
+
+.search-box:focus-within {
+  outline: 3px solid rgb(100 173 112 / 35%);
+}
+
+.search-message {
+  min-height: 1.3em;
+  margin: 9px 8px 0;
+  color: #666666;
+  font-size: 0.85rem;
+}
+
+/* =========================
+   地図エリア
+========================= */
+
+.map-section {
+  position: relative;
+  padding: 18px 0 28px;
+  background: var(--map-background);
+}
+
+.floor-switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: min(54%, 280px);
+  margin: 0 auto 18px;
+  padding: 6px;
+  border-radius: 23px;
+  background: var(--green-light);
+}
+
+.floor-button {
+  min-height: 48px;
+  border: 0;
+  border-radius: 18px;
+  background: transparent;
+  color: #7e7e7e;
+  font-size: 1.65rem;
+  font-weight: 800;
+}
+
+.floor-button.is-active {
+  color: #ffffff;
+  background: var(--green);
+}
+
+/*
+  map-viewportが地図を見る窓です。
+  地図を拡大すると、この中を指でスクロールできます。
+*/
+
+.map-viewport {
+  width: 100%;
+  height: 590px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-x pan-y;
+  scrollbar-width: none;
+}
+
+.map-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+/*
+  600 × 720の仮想キャンバスを縮小表示します。
+  すべての部屋はこの中に絶対配置されます。
+*/
+
+.map-canvas {
+  position: relative;
+  width: 600px;
+  height: 720px;
+  margin: 0 auto;
+  transform: scale(0.62);
+  transform-origin: top center;
+  transition: transform 0.18s ease;
+}
+
+/* =========================
+   地図の廊下
+========================= */
+
+.map-corridor {
+  position: absolute;
+  background: #79b875;
+  pointer-events: none;
+}
+
+.corridor-horizontal {
+  height: 56px;
+}
+
+.corridor-vertical {
+  width: 62px;
+}
+
+/* =========================
+   部屋
+========================= */
+
+.map-room {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  padding: 4px;
+  border: 4px solid #79b875;
+  border-radius: 2px;
+  background: #eeeeee;
+  color: #222222;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-align: center;
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    transform 0.15s;
+}
+
+.map-room:active {
+  transform: scale(0.94);
+}
+
+.map-room.has-match {
+  border-color: var(--red-dark);
+  color: #ffffff;
+  background: var(--red);
+}
+
+.map-room.has-match::after {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  border: 3px solid rgb(220 48 33 / 25%);
+  pointer-events: none;
+}
+
+.map-room.is-dimmed {
+  color: #aaaaaa;
+  background: #e7e7e7;
+}
+
+/* =========================
+   ズームボタン
+========================= */
+
+.zoom-controls {
+  position: absolute;
+  right: 14px;
+  bottom: 50px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #c3d4c2;
+}
+
+.zoom-button {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 53px;
+  border: 0;
+  background: transparent;
+  font-size: 2.1rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.zoom-button:active {
+  background: rgb(0 0 0 / 8%);
+}
+
+.zoom-in-button {
+  font-size: 1.6rem;
+}
+
+/* =========================
+   カテゴリーナビ
+========================= */
+
+.category-nav {
+  position: sticky;
+  z-index: 20;
+  bottom: 12px;
+
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 3px;
+
+  width: calc(100% - 24px);
+  max-width: 570px;
+  margin: 28px auto 18px;
+  padding: 10px 6px;
+
+  border-radius: 22px;
+  background: #dddddd;
+  box-shadow: 0 5px 20px rgb(0 0 0 / 12%);
+}
+
+.category-button {
+  display: flex;
+  min-width: 0;
+  min-height: 78px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 6px 2px;
+  border: 0;
+  border-radius: 15px;
+  background: transparent;
+
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+.category-button.is-active {
+  color: #ffffff;
+  background: var(--green);
+}
+
+.category-icon-image {
+  display: block;
+  width: 42px;
+  height: 42px;
+  margin-bottom: 5px;
+  object-fit: contain;
+}
+
+@media (max-width: 380px) {
+  .category-icon-image {
+    width: 34px;
+    height: 34px;
+  }
+}
+
+/* =========================
+   ポップアップ
+========================= */
+
+.popup-overlay {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+
+  display: grid;
+  place-items: center;
+
+  padding: 20px;
+  background: rgb(0 0 0 / 35%);
+}
+
+.popup-overlay[hidden] {
+  display: none;
+}
+
+.room-popup {
+  position: relative;
+  width: min(100%, 360px);
+  max-height: min(75vh, 520px);
+  padding: 25px 20px 20px;
+  border-radius: 24px;
+  background: #eeeeee;
+  box-shadow: 0 12px 30px rgb(0 0 0 / 25%);
+}
+
+.popup-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+
+  width: 38px;
+  height: 38px;
+
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.popup-title {
+  margin: 0 40px 4px 0;
+  font-size: 1.3rem;
+}
+
+.popup-condition {
+  margin: 0 0 16px;
+  color: #666666;
+  font-size: 0.8rem;
+}
+
+.organisation-list {
+  max-height: 220px;
+  margin-bottom: 20px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.organisation-item {
+  display: grid;
+  grid-template-columns: 12px 1fr;
+  gap: 10px;
+  align-items: start;
+  padding: 10px 2px;
+  border-bottom: 1px solid #d0d0d0;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.organisation-dot {
+  width: 10px;
+  height: 10px;
+  margin-top: 4px;
+  border-radius: 50%;
+  background: var(--green-dark);
+}
+
+.search-highlight {
+  padding: 0 2px;
+  border-radius: 3px;
+  background: #fff176;
+  color: #111111;
+  font-weight: 800;
+}
+
+.no-result {
+  margin: 25px 0;
+  color: #777777;
+  text-align: center;
+}
+
+.room-link-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 52px;
+  padding: 10px 16px;
+
+  border-radius: 14px;
+  color: #ffffff;
+  background: #59a353;
+
+  font-weight: 800;
+  text-align: center;
+  text-decoration: none;
+}
+
+/* =========================
+   小さいスマートフォン
+========================= */
+
+@media (max-width: 380px) {
+  .site-title {
+    font-size: 2rem;
+  }
+
+  .venue-tab {
+    font-size: 2.2rem;
+  }
+
+  .search-section {
+    width: calc(100% - 32px);
+  }
+
+  .map-viewport {
+    height: 530px;
+  }
+
+  .map-canvas {
+    transform: scale(0.54);
+  }
+
+  .category-button {
+    font-size: 0.62rem;
+  }
+
+  .category-icon {
+    font-size: 1.5rem;
+  }
+}
