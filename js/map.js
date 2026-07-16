@@ -413,7 +413,7 @@ function calculateInitialMapPosition() {
   const widthScale = viewportWidth / MAP_WIDTH;
   const heightScale = viewportHeight / MAP_HEIGHT;
 
-  minimumMapScale = Math.min(widthScale, heightScale) * 1.08;
+  minimumMapScale = Math.min(widthScale, heightScale) * 0.94;
   mapScale = minimumMapScale;
 
   mapX = (viewportWidth - MAP_WIDTH * mapScale) / 2;
