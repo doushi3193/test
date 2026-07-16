@@ -96,60 +96,65 @@
             aria-label="OIC third floor map"
           >
             <!-- Building base -->
-            <path
+            <!--
+              The base is made from clean rectangles so that:
+              1. the left upper corridor is present;
+              2. there is no bump beside PS Lounge;
+              3. the middle and right sections retain their current shape.
+            -->
+
+            <!-- Left vertical building -->
+            <rect
               class="map-building"
-              d="
-                M48 90
-                H200
-                V190
-                H325
-                V90
-                H475
-                V190
-                H560
-                V90
-                H640
-                V180
-                H710
-                V420
-                H760
-                V492
-                H710
-                V610
-                H560
-                V492
-                H475
-                V610
-                H325
-                V492
-                H248
-                V420
-                H48
-                V492
-                H0
-                V420
-                H48
-                V234
-                H0
-                V190
-                H48
-                Z
+              x="48"
+              y="90"
+              width="152"
+              height="402"
+            />
 
-                M200 234
-                H325
-                V420
-                H248
-                V282
-                H200
-                Z
+            <!-- Middle vertical building -->
+            <rect
+              class="map-building"
+              x="325"
+              y="90"
+              width="150"
+              height="520"
+            />
 
-                M475 234
-                H560
-                V420
-                H475
-                Z
-              "
-              fill-rule="evenodd"
+            <!-- Right vertical building -->
+            <rect
+              class="map-building"
+              x="560"
+              y="90"
+              width="150"
+              height="520"
+            />
+
+            <!-- Upper corridor -->
+            <rect
+              class="map-building"
+              x="0"
+              y="190"
+              width="760"
+              height="44"
+            />
+
+            <!-- Lower corridor -->
+            <rect
+              class="map-building"
+              x="0"
+              y="420"
+              width="760"
+              height="72"
+            />
+
+            <!-- Right-side Student Lounge extension -->
+            <rect
+              class="map-building"
+              x="700"
+              y="180"
+              width="60"
+              height="312"
             />
 
             <!-- Left section -->
