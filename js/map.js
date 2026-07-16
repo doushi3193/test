@@ -2,17 +2,13 @@
 
 /*
   ==================================================
-  会場・階・部屋・団体のデータ
+  VENUE, FLOOR, ROOM, AND ORGANISATION DATA
   ==================================================
 
-  x, y, width, heightは、600 × 720の地図内での位置です。
+  This prototype currently contains the OIC 3F SVG map.
 
-  organisationのcategoryは次のいずれかです。
-
-  sports
-  culture
-  academic
-  volunteering
+  Each room ID must exactly match the data-room-id
+  value used in index.html.
 */
 
 const venueData = {
@@ -21,6 +17,8 @@ const venueData = {
 
     floors: {
       3: {
+        name: "3F",
+
         rooms: [
           {
             id: "as368",
@@ -372,94 +370,112 @@ const venueData = {
   }
 };
 
-const svgRoomElements =
-  document.querySelectorAll("#oic3fMap .map-room");
-
-svgRoomElements.forEach((roomElement) => {
-  function openThisRoom() {
-    const roomId = roomElement.dataset.roomId;
-    const room = getRoomById(roomId);
-
-    if (!room) {
-      return;
-    }
-
-    openRoomPopup(room);
-  }
-
-  roomElement.addEventListener("click", () => {
-  if (mapWasDragged) {
-    mapWasDragged = false;
-    return;
-  }
-
-  openThisRoom();
-});
-
-  roomElement.addEventListener("keydown", (event) => {
-    if (
-      event.key === "Enter" ||
-      event.key === " "
-    ) {
-      event.preventDefault();
-      openThisRoom();
-    }
-  });
-});
-
 /*
   ==================================================
-  現在の状態
+  CURRENT PAGE STATE
   ==================================================
 */
 
 let currentVenue = "oic";
 let currentFloor = 3;
+
 let activeCategory = null;
 let searchText = "";
 
-let mapWasDragged = false;
-
 /*
   ==================================================
-  HTML要素
+  HTML ELEMENTS
   ==================================================
 */
 
-const mapCanvas = document.querySelector("#mapCanvas");
-const mapViewport = document.querySelector("#mapViewport");
+const floorMap =
+  document.querySelector("#floorMap");
 
-const searchInput = document.querySelector("#organisationSearch");
-const searchMessage = document.querySelector("#searchMessage");
+const mapViewport =
+  document.querySelector("#mapViewport");
 
-const venueTabs = document.querySelectorAll(".venue-tab");
-const floorButtons = document.querySelectorAll(".floor-button");
-const categoryButtons = document.querySelectorAll(".category-button");
+const mapTransformLayer =
+  document.querySelector("#mapTransformLayer");
 
-const zoomInButton = document.querySelector("#zoomInButton");
-const zoomOutButton = document.querySelector("#zoomOutButton");
+const searchInput =
+  document.querySelector("#organisationSearch");
 
-const roomPopup = document.querySelector("#roomPopup");
-const closePopupButton = document.querySelector("#closePopupButton");
+const searchMessage =
+  document.querySelector("#searchMessage");
 
-const popupRoomName = document.querySelector("#popupRoomName");
-const popupCondition = document.querySelector("#popupCondition");
+const venueTabs =
+  document.querySelectorAll(".venue-tab");
+
+const floorButtons =
+  document.querySelectorAll(".floor-button");
+
+const categoryButtons =
+  document.querySelectorAll(".category-button");
+
+const zoomInButton =
+  document.querySelector("#zoomInButton");
+
+const zoomOutButton =
+  document.querySelector("#zoomOutButton");
+
+const roomPopup =
+  document.querySelector("#roomPopup");
+
+const closePopupButton =
+  document.querySelector("#closePopupButton");
+
+const popupRoomName =
+  document.querySelector("#popupRoomName");
+
+const popupCondition =
+  document.querySelector("#popupCondition");
+
 const popupOrganisationList =
   document.querySelector("#popupOrganisationList");
 
-const roomPageLink = document.querySelector("#roomPageLink");
+const roomPageLink =
+  document.querySelector("#roomPageLink");
+
+/*
+  Stop immediately and show a useful error if the HTML
+  and JavaScript file do not match.
+*/
+
+const requiredElements = [
+  floorMap,
+  mapViewport,
+  mapTransformLayer,
+  searchInput,
+  searchMessage,
+  zoomInButton,
+  zoomOutButton,
+  roomPopup,
+  closePopupButton,
+  popupRoomName,
+  popupCondition,
+  popupOrganisationList,
+  roomPageLink
+];
+
+if (requiredElements.some((element) => !element)) {
+  throw new Error(
+    "The HTML does not match map.js. " +
+    "Make sure you replaced the complete index.html file."
+  );
+}
 
 /*
   ==================================================
-  地図を作る
+  ROOM DATA HELPERS
   ==================================================
 */
 
-function getCurrentRooms() {
-  const venue = venueData[currentVenue];
-  const floor = venue?.floors?.[currentFloor];
+function getCurrentFloorData() {
+  return venueData[currentVenue]?.floors?.[currentFloor] ?? null;
+}
 
-  return floor?.rooms ?? [];
+function getCurrentRooms() {
+  return getCurrentFloorData()?.rooms ?? [];
 }
 
 function getRoomById(roomId) {
@@ -468,16 +484,45 @@ function getRoomById(roomId) {
   });
 }
 
+/*
+  ==================================================
+  SEARCH AND FILTERING
+  ==================================================
+*/
+
+function getMatchingOrganisations(room) {
+  const normalisedSearch =
+    searchText.trim().toLowerCase();
+
+  return room.organisations.filter((organisation) => {
+    const matchesSearch =
+      normalisedSearch === "" ||
+      organisation.name
+        .toLowerCase()
+        .includes(normalisedSearch);
+
+    const matchesCategory =
+      activeCategory === null ||
+      organisation.category === activeCategory;
+
+    return matchesSearch && matchesCategory;
+  });
+}
+
 function renderMap() {
   const roomElements =
-    document.querySelectorAll("#oic3fMap .map-room");
+    floorMap.querySelectorAll(".map-room");
 
   const filterIsActive =
-    searchText !== "" || activeCategory !== null;
+    searchText !== "" ||
+    activeCategory !== null;
 
   roomElements.forEach((roomElement) => {
-    const roomId = roomElement.dataset.roomId;
-    const room = getRoomById(roomId);
+    const roomId =
+      roomElement.dataset.roomId;
+
+    const room =
+      getRoomById(roomId);
 
     roomElement.classList.remove(
       "has-match",
@@ -489,20 +534,16 @@ function renderMap() {
       return;
     }
 
+    if (!filterIsActive) {
+      return;
+    }
+
     const matchingOrganisations =
       getMatchingOrganisations(room);
 
-    if (
-      filterIsActive &&
-      matchingOrganisations.length > 0
-    ) {
+    if (matchingOrganisations.length > 0) {
       roomElement.classList.add("has-match");
-    }
-
-    if (
-      filterIsActive &&
-      matchingOrganisations.length === 0
-    ) {
+    } else {
       roomElement.classList.add("is-dimmed");
     }
   });
@@ -510,129 +551,56 @@ function renderMap() {
   updateSearchMessage();
 }
 
-/*
-  会場ごとに別の地図の廊下を作ることもできます。
-  今回は簡単なプロトタイプとして、共通の形を使います。
-*/
-
-function createCorridors() {
-  const corridors = [
-    {
-      className: "corridor-horizontal",
-      x: 42,
-      y: 190,
-      width: 515,
-      height: 56
-    },
-    {
-      className: "corridor-horizontal",
-      x: 74,
-      y: 365,
-      width: 465,
-      height: 64
-    },
-    {
-      className: "corridor-vertical",
-      x: 120,
-      y: 40,
-      width: 62,
-      height: 590
-    },
-    {
-      className: "corridor-vertical",
-      x: 268,
-      y: 40,
-      width: 62,
-      height: 590
-    },
-    {
-      className: "corridor-vertical",
-      x: 416,
-      y: 40,
-      width: 62,
-      height: 590
-    }
-  ];
-
-  corridors.forEach((corridorData) => {
-    const corridor = document.createElement("div");
-
-    corridor.className =
-      `map-corridor ${corridorData.className}`;
-
-    corridor.style.left = `${corridorData.x}px`;
-    corridor.style.top = `${corridorData.y}px`;
-    corridor.style.width = `${corridorData.width}px`;
-    corridor.style.height = `${corridorData.height}px`;
-
-    mapCanvas.appendChild(corridor);
-  });
-}
-
-/*
-  ==================================================
-  検索条件
-  ==================================================
-*/
-
-function getMatchingOrganisations(room) {
-  return room.organisations.filter((organisation) => {
-    const matchesSearch =
-      searchText === "" ||
-      organisation.name
-        .toLowerCase()
-        .includes(searchText.toLowerCase());
-
-    const matchesCategory =
-      activeCategory === null ||
-      organisation.category === activeCategory;
-
-    return matchesSearch && matchesCategory;
-  });
-}
-
 function updateSearchMessage() {
   const filterIsActive =
-    searchText !== "" || activeCategory !== null;
+    searchText !== "" ||
+    activeCategory !== null;
+
+  if (!getCurrentFloorData()) {
+    searchMessage.textContent =
+      "This map has not been added to the prototype yet.";
+
+    return;
+  }
 
   if (!filterIsActive) {
     searchMessage.textContent =
       "Search by organisation name or choose a category.";
+
     return;
   }
 
-  const rooms =
-    venueData[currentVenue]
-      .floors[currentFloor]
-      .rooms;
-
-  const matchingRoomCount = rooms.filter((room) => {
-    return getMatchingOrganisations(room).length > 0;
-  }).length;
+  const matchingRoomCount =
+    getCurrentRooms().filter((room) => {
+      return getMatchingOrganisations(room).length > 0;
+    }).length;
 
   if (matchingRoomCount === 0) {
     searchMessage.textContent =
       "No matching organisations were found on this floor.";
+  } else if (matchingRoomCount === 1) {
+    searchMessage.textContent =
+      "1 matching room found.";
   } else {
     searchMessage.textContent =
-      `${matchingRoomCount} matching room(s) found.`;
+      `${matchingRoomCount} matching rooms found.`;
   }
 }
 
 /*
   ==================================================
-  部屋ポップアップ
+  SEARCH-TEXT HIGHLIGHTING
   ==================================================
 */
 
 function createHighlightedName(organisationName) {
-  const fragment = document.createDocumentFragment();
+  const fragment =
+    document.createDocumentFragment();
 
-  /*
-    If there is no text search, show the full name normally.
-    Category filtering alone does not highlight any letters.
-  */
-  if (searchText === "") {
+  const cleanSearch =
+    searchText.trim();
+
+  if (cleanSearch === "") {
     fragment.append(
       document.createTextNode(organisationName)
     );
@@ -640,61 +608,61 @@ function createHighlightedName(organisationName) {
     return fragment;
   }
 
-  const lowerName = organisationName.toLowerCase();
-  const lowerSearch = searchText.toLowerCase();
+  const lowerName =
+    organisationName.toLowerCase();
+
+  const lowerSearch =
+    cleanSearch.toLowerCase();
 
   let currentPosition = 0;
-  let matchPosition = lowerName.indexOf(
-    lowerSearch,
-    currentPosition
-  );
 
-  while (matchPosition !== -1) {
-    /*
-      Add the normal text before the match.
-    */
-    const textBeforeMatch = organisationName.slice(
-      currentPosition,
-      matchPosition
+  let matchPosition =
+    lowerName.indexOf(
+      lowerSearch,
+      currentPosition
     );
 
-    if (textBeforeMatch) {
+  while (matchPosition !== -1) {
+    const textBeforeMatch =
+      organisationName.slice(
+        currentPosition,
+        matchPosition
+      );
+
+    if (textBeforeMatch !== "") {
       fragment.append(
         document.createTextNode(textBeforeMatch)
       );
     }
 
-    /*
-      Add the matching section with a highlight.
-    */
-    const highlightedText = document.createElement("mark");
+    const highlightedText =
+      document.createElement("mark");
 
-    highlightedText.className = "search-highlight";
+    highlightedText.className =
+      "search-highlight";
 
-    highlightedText.textContent = organisationName.slice(
-      matchPosition,
-      matchPosition + searchText.length
-    );
+    highlightedText.textContent =
+      organisationName.slice(
+        matchPosition,
+        matchPosition + cleanSearch.length
+      );
 
     fragment.append(highlightedText);
 
     currentPosition =
-      matchPosition + searchText.length;
+      matchPosition + cleanSearch.length;
 
-    matchPosition = lowerName.indexOf(
-      lowerSearch,
-      currentPosition
-    );
+    matchPosition =
+      lowerName.indexOf(
+        lowerSearch,
+        currentPosition
+      );
   }
 
-  /*
-    Add any text remaining after the final match.
-  */
-  const remainingText = organisationName.slice(
-    currentPosition
-  );
+  const remainingText =
+    organisationName.slice(currentPosition);
 
-  if (remainingText) {
+  if (remainingText !== "") {
     fragment.append(
       document.createTextNode(remainingText)
     );
@@ -703,91 +671,192 @@ function createHighlightedName(organisationName) {
   return fragment;
 }
 
+/*
+  ==================================================
+  ROOM POPUP
+  ==================================================
+*/
+
 function openRoomPopup(room) {
-  const filteredOrganisations =
-    getMatchingOrganisations(room);
-
   const filterIsActive =
-    searchText !== "" || activeCategory !== null;
+    searchText !== "" ||
+    activeCategory !== null;
 
-  const organisationsToShow = filterIsActive
-    ? filteredOrganisations
-    : room.organisations;
+  const organisationsToShow =
+    filterIsActive
+      ? getMatchingOrganisations(room)
+      : room.organisations;
 
-  popupRoomName.textContent = room.name;
+  popupRoomName.textContent =
+    room.name;
 
-  if (filterIsActive) {
-    popupCondition.textContent =
-      "Organisations matching your current search:";
-  } else {
-    popupCondition.textContent =
-      "Organisations in this room:";
-  }
+  popupCondition.textContent =
+    filterIsActive
+      ? "Organisations matching your current search:"
+      : "Organisations in this room:";
 
-  popupOrganisationList.innerHTML = "";
+  popupOrganisationList.replaceChildren();
 
   if (organisationsToShow.length === 0) {
-    const noResult = document.createElement("p");
+    const noResult =
+      document.createElement("p");
 
-    noResult.className = "no-result";
+    noResult.className =
+      "no-result";
+
     noResult.textContent =
       "No organisations in this room match the current criteria.";
 
-    popupOrganisationList.appendChild(noResult);
+    popupOrganisationList.append(noResult);
   } else {
     organisationsToShow.forEach((organisation) => {
-  const item = document.createElement("div");
-  item.className = "organisation-item";
+      const item =
+        document.createElement("div");
 
-  const dot = document.createElement("span");
-  dot.className = "organisation-dot";
+      item.className =
+        "organisation-item";
 
-  const name = document.createElement("span");
+      const dot =
+        document.createElement("span");
 
-  name.appendChild(
-    createHighlightedName(organisation.name)
-  );
+      dot.className =
+        "organisation-dot";
 
-  item.append(dot, name);
-  popupOrganisationList.appendChild(item);
-});
+      const name =
+        document.createElement("span");
+
+      name.append(
+        createHighlightedName(organisation.name)
+      );
+
+      item.append(dot, name);
+      popupOrganisationList.append(item);
+    });
   }
 
-  const roomUrl = new URL(
-    "room.html",
-    window.location.href
+  const roomUrl =
+    new URL(
+      "room.html",
+      window.location.href
+    );
+
+  roomUrl.searchParams.set(
+    "venue",
+    currentVenue
   );
 
-  roomUrl.searchParams.set("venue", currentVenue);
-  roomUrl.searchParams.set("floor", currentFloor);
-  roomUrl.searchParams.set("room", room.id);
-  roomUrl.searchParams.set("name", room.name);
+  roomUrl.searchParams.set(
+    "floor",
+    String(currentFloor)
+  );
 
-  roomPageLink.href = roomUrl.toString();
-  roomPageLink.textContent = `Go to ${room.name}`;
+  roomUrl.searchParams.set(
+    "room",
+    room.id
+  );
+
+  roomUrl.searchParams.set(
+    "name",
+    room.name
+  );
+
+  roomPageLink.href =
+    roomUrl.toString();
+
+  roomPageLink.textContent =
+    `Go to ${room.name}`;
 
   roomPopup.hidden = false;
-  document.body.style.overflow = "hidden";
+
+  document.body.style.overflow =
+    "hidden";
+
+  closePopupButton.focus();
 }
 
 function closeRoomPopup() {
   roomPopup.hidden = true;
-  document.body.style.overflow = "";
+
+  document.body.style.overflow =
+    "";
 }
 
 /*
   ==================================================
-  会場の切り替え
+  ROOM CLICK AND KEYBOARD HANDLING
   ==================================================
+*/
+
+let mapWasDragged = false;
+let suppressNextRoomClick = false;
+
+const svgRoomElements =
+  floorMap.querySelectorAll(".map-room");
+
+svgRoomElements.forEach((roomElement) => {
+  function openThisRoom() {
+    const roomId =
+      roomElement.dataset.roomId;
+
+    const room =
+      getRoomById(roomId);
+
+    if (!room) {
+      return;
+    }
+
+    openRoomPopup(room);
+  }
+
+  roomElement.addEventListener("click", () => {
+    if (suppressNextRoomClick) {
+      suppressNextRoomClick = false;
+      return;
+    }
+
+    openThisRoom();
+  });
+
+  roomElement.addEventListener(
+    "keydown",
+    (event) => {
+      if (
+        event.key === "Enter" ||
+        event.key === " "
+      ) {
+        event.preventDefault();
+        openThisRoom();
+      }
+    }
+  );
+});
+
+/*
+  ==================================================
+  VENUE TABS
+  ==================================================
+
+  Only OIC has a complete SVG map in this prototype.
+  Pressing KIC keeps OIC selected and explains why.
 */
 
 venueTabs.forEach((tab) => {
   tab.addEventListener("click", () => {
-    currentVenue = tab.dataset.venue;
+    const requestedVenue =
+      tab.dataset.venue;
+
+    if (requestedVenue !== "oic") {
+      searchMessage.textContent =
+        "The KIC map has not been added to this prototype yet.";
+
+      return;
+    }
+
+    currentVenue = "oic";
 
     venueTabs.forEach((otherTab) => {
       const isActive =
-        otherTab.dataset.venue === currentVenue;
+        otherTab.dataset.venue === "oic";
 
       otherTab.classList.toggle(
         "is-active",
@@ -800,48 +869,69 @@ venueTabs.forEach((tab) => {
       );
     });
 
-    resetMapScroll();
+    resetMapView();
     renderMap();
   });
 });
 
 /*
   ==================================================
-  階数切り替え
+  FLOOR BUTTONS
   ==================================================
+
+  Only the OIC 3F map exists in the current SVG.
 */
 
 floorButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    currentFloor = Number(button.dataset.floor);
+    const requestedFloor =
+      Number(button.dataset.floor);
+
+    if (requestedFloor !== 3) {
+      searchMessage.textContent =
+        "The OIC 1F map has not been added to this prototype yet.";
+
+      return;
+    }
+
+    currentFloor = 3;
 
     floorButtons.forEach((otherButton) => {
+      const isActive =
+        Number(otherButton.dataset.floor) === 3;
+
       otherButton.classList.toggle(
         "is-active",
-        Number(otherButton.dataset.floor) ===
-          currentFloor
+        isActive
+      );
+
+      otherButton.setAttribute(
+        "aria-selected",
+        String(isActive)
       );
     });
 
-    resetMapScroll();
+    resetMapView();
     renderMap();
   });
 });
 
 /*
   ==================================================
-  検索
+  SEARCH INPUT
   ==================================================
 */
 
 searchInput.addEventListener("input", () => {
-  searchText = searchInput.value.trim();
+  searchText =
+    searchInput.value.trim();
+
   renderMap();
 });
 
 /*
   ==================================================
-  カテゴリー
+  CATEGORY BUTTONS
   ==================================================
 */
 
@@ -850,10 +940,6 @@ categoryButtons.forEach((button) => {
     const selectedCategory =
       button.dataset.category;
 
-    /*
-      同じカテゴリーをもう一度押したら解除します。
-    */
-
     if (activeCategory === selectedCategory) {
       activeCategory = null;
     } else {
@@ -861,10 +947,18 @@ categoryButtons.forEach((button) => {
     }
 
     categoryButtons.forEach((otherButton) => {
+      const isActive =
+        otherButton.dataset.category ===
+        activeCategory;
+
       otherButton.classList.toggle(
         "is-active",
-        otherButton.dataset.category ===
-          activeCategory
+        isActive
+      );
+
+      otherButton.setAttribute(
+        "aria-pressed",
+        String(isActive)
       );
     });
 
@@ -874,60 +968,61 @@ categoryButtons.forEach((button) => {
 
 /*
   ==================================================
-  ズーム
+  MAP ZOOM AND PAN SETTINGS
   ==================================================
 */
-
-/*
-  ==================================================
-  Touch zoom and pan
-  ==================================================
-*/
-
-const mapViewport =
-  document.querySelector("#mapViewport");
-
-const mapTransformLayer =
-  document.querySelector("#mapTransformLayer");
-
-const zoomInButton =
-  document.querySelector("#zoomInButton");
-
-const zoomOutButton =
-  document.querySelector("#zoomOutButton");
 
 const MAP_WIDTH = 760;
 const MAP_HEIGHT = 650;
 
 let mapScale = 1;
 let minimumMapScale = 1;
-let maximumMapScale = 3.2;
+const maximumMapScale = 3.2;
 
 let mapX = 0;
 let mapY = 0;
 
-const activePointers = new Map();
+const activePointers =
+  new Map();
 
 let previousSinglePointer = null;
 let previousPinchDistance = null;
 let previousPinchCenter = null;
 
-function calculateInitialMapPosition() {
-  const viewportWidth = mapViewport.clientWidth;
-  const viewportHeight = mapViewport.clientHeight;
+/*
+  Used so tiny finger movements do not count as dragging.
+*/
 
-  const widthScale = viewportWidth / MAP_WIDTH;
-  const heightScale = viewportHeight / MAP_HEIGHT;
+const DRAG_THRESHOLD = 5;
+let totalDragDistance = 0;
+
+function applyMapTransform() {
+  mapTransformLayer.style.transform =
+    `translate(${mapX}px, ${mapY}px) scale(${mapScale})`;
+}
+
+function calculateInitialMapPosition() {
+  const viewportWidth =
+    mapViewport.clientWidth;
+
+  const viewportHeight =
+    mapViewport.clientHeight;
+
+  const widthScale =
+    viewportWidth / MAP_WIDTH;
+
+  const heightScale =
+    viewportHeight / MAP_HEIGHT;
 
   /*
-    Fit the complete map inside the initial view.
+    Fit the whole map inside the viewport.
   */
-  minimumMapScale = Math.min(
-    widthScale,
-    heightScale
-  );
 
-  mapScale = minimumMapScale;
+  minimumMapScale =
+    Math.min(widthScale, heightScale);
+
+  mapScale =
+    minimumMapScale;
 
   mapX =
     (viewportWidth - MAP_WIDTH * mapScale) / 2;
@@ -939,30 +1034,49 @@ function calculateInitialMapPosition() {
   applyMapTransform();
 }
 
-function applyMapTransform() {
-  mapTransformLayer.style.transform =
-    `translate(${mapX}px, ${mapY}px) scale(${mapScale})`;
+function resetMapView() {
+  calculateInitialMapPosition();
 }
 
 function constrainMapPosition() {
-  const viewportWidth = mapViewport.clientWidth;
-  const viewportHeight = mapViewport.clientHeight;
+  const viewportWidth =
+    mapViewport.clientWidth;
 
-  const scaledWidth = MAP_WIDTH * mapScale;
-  const scaledHeight = MAP_HEIGHT * mapScale;
+  const viewportHeight =
+    mapViewport.clientHeight;
+
+  const scaledWidth =
+    MAP_WIDTH * mapScale;
+
+  const scaledHeight =
+    MAP_HEIGHT * mapScale;
 
   if (scaledWidth <= viewportWidth) {
-    mapX = (viewportWidth - scaledWidth) / 2;
+    mapX =
+      (viewportWidth - scaledWidth) / 2;
   } else {
-    const minimumX = viewportWidth - scaledWidth;
-    mapX = Math.min(0, Math.max(minimumX, mapX));
+    const minimumX =
+      viewportWidth - scaledWidth;
+
+    mapX =
+      Math.min(
+        0,
+        Math.max(minimumX, mapX)
+      );
   }
 
   if (scaledHeight <= viewportHeight) {
-    mapY = (viewportHeight - scaledHeight) / 2;
+    mapY =
+      (viewportHeight - scaledHeight) / 2;
   } else {
-    const minimumY = viewportHeight - scaledHeight;
-    mapY = Math.min(0, Math.max(minimumY, mapY));
+    const minimumY =
+      viewportHeight - scaledHeight;
+
+    mapY =
+      Math.min(
+        0,
+        Math.max(minimumY, mapY)
+      );
   }
 }
 
@@ -980,69 +1094,74 @@ function getCenter(firstPoint, secondPoint) {
   };
 }
 
-function zoomAtPoint(newScale, screenX, screenY) {
-  const limitedScale = Math.min(
-    maximumMapScale,
-    Math.max(minimumMapScale, newScale)
-  );
+function zoomAtPoint(
+  newScale,
+  viewportX,
+  viewportY
+) {
+  const limitedScale =
+    Math.min(
+      maximumMapScale,
+      Math.max(minimumMapScale, newScale)
+    );
 
-  /*
-    Convert the finger position into map coordinates
-    before changing scale.
-  */
   const mapPointX =
-    (screenX - mapX) / mapScale;
+    (viewportX - mapX) / mapScale;
 
   const mapPointY =
-    (screenY - mapY) / mapScale;
+    (viewportY - mapY) / mapScale;
 
-  mapScale = limitedScale;
+  mapScale =
+    limitedScale;
 
-  /*
-    Keep the same map point under the finger.
-  */
   mapX =
-    screenX - mapPointX * mapScale;
+    viewportX - mapPointX * mapScale;
 
   mapY =
-    screenY - mapPointY * mapScale;
+    viewportY - mapPointY * mapScale;
 
   constrainMapPosition();
   applyMapTransform();
 }
 
-const movementX =
-  currentPointer.x - previousSinglePointer.x;
-
-const movementY =
-  currentPointer.y - previousSinglePointer.y;
-
-if (
-  Math.abs(movementX) > 3 ||
-  Math.abs(movementY) > 3
-) {
-  mapWasDragged = true;
-}
-
-mapX += movementX;
-mapY += movementY;
+/*
+  ==================================================
+  POINTER DOWN
+  ==================================================
+*/
 
 mapViewport.addEventListener(
   "pointerdown",
   (event) => {
-    
-    mapViewport.setPointerCapture(event.pointerId);
+    event.preventDefault();
 
     if (activePointers.size === 0) {
       mapWasDragged = false;
+      totalDragDistance = 0;
     }
 
-    activePointers.set(event.pointerId, {
-      x: event.clientX,
-      y: event.clientY
-    });
+    try {
+      mapViewport.setPointerCapture(
+        event.pointerId
+      );
+    } catch (error) {
+      /*
+        Some browsers may reject pointer capture.
+        The gesture can still continue without it.
+      */
+    }
 
-    mapViewport.classList.add("is-dragging");
+    activePointers.set(
+      event.pointerId,
+      {
+        x: event.clientX,
+        y: event.clientY
+      }
+    );
+
+    mapViewport.classList.add(
+      "is-dragging"
+    );
 
     if (activePointers.size === 1) {
       previousSinglePointer = {
@@ -1052,18 +1171,32 @@ mapViewport.addEventListener(
     }
 
     if (activePointers.size === 2) {
-      const points = [...activePointers.values()];
+      const points =
+        [...activePointers.values()];
 
       previousPinchDistance =
-        getDistance(points[0], points[1]);
+        getDistance(
+          points[0],
+          points[1]
+        );
 
       previousPinchCenter =
-        getCenter(points[0], points[1]);
+        getCenter(
+          points[0],
+          points[1]
+        );
 
       previousSinglePointer = null;
+      mapWasDragged = true;
     }
   }
 );
+
+/*
+  ==================================================
+  POINTER MOVE
+  ==================================================
+*/
 
 mapViewport.addEventListener(
   "pointermove",
@@ -1072,10 +1205,19 @@ mapViewport.addEventListener(
       return;
     }
 
-    activePointers.set(event.pointerId, {
-      x: event.clientX,
-      y: event.clientY
-    });
+    event.preventDefault();
+
+    activePointers.set(
+      event.pointerId,
+      {
+        x: event.clientX,
+        y: event.clientY
+      }
+    );
+
+    /*
+      One-finger movement
+    */
 
     if (
       activePointers.size === 1 &&
@@ -1084,40 +1226,67 @@ mapViewport.addEventListener(
       const currentPointer =
         [...activePointers.values()][0];
 
-      mapX +=
+      const movementX =
         currentPointer.x -
         previousSinglePointer.x;
 
-      mapY +=
+      const movementY =
         currentPointer.y -
         previousSinglePointer.y;
 
-      previousSinglePointer = currentPointer;
+      totalDragDistance +=
+        Math.hypot(movementX, movementY);
+
+      if (
+        totalDragDistance >
+        DRAG_THRESHOLD
+      ) {
+        mapWasDragged = true;
+      }
+
+      mapX += movementX;
+      mapY += movementY;
+
+      previousSinglePointer =
+        currentPointer;
 
       constrainMapPosition();
       applyMapTransform();
     }
 
+    /*
+      Two-finger pinch zoom
+    */
+
     if (activePointers.size === 2) {
-      const points = [...activePointers.values()];
+      const points =
+        [...activePointers.values()];
 
       const currentDistance =
-        getDistance(points[0], points[1]);
+        getDistance(
+          points[0],
+          points[1]
+        );
 
       const currentCenter =
-        getCenter(points[0], points[1]);
+        getCenter(
+          points[0],
+          points[1]
+        );
 
       if (
-        previousPinchDistance &&
-        previousPinchCenter
+        previousPinchDistance !== null &&
+        previousPinchCenter !== null
       ) {
         const scaleChange =
-          currentDistance / previousPinchDistance;
+          currentDistance /
+          previousPinchDistance;
 
         /*
-          Move the map along with the centre of
-          the two fingers.
+          Move the map when the centre of the
+          two fingers moves.
         */
+
         mapX +=
           currentCenter.x -
           previousPinchCenter.x;
@@ -1126,14 +1295,16 @@ mapViewport.addEventListener(
           currentCenter.y -
           previousPinchCenter.y;
 
-        const viewportRect =
+        const viewportRectangle =
           mapViewport.getBoundingClientRect();
 
         const localCenterX =
-          currentCenter.x - viewportRect.left;
+          currentCenter.x -
+          viewportRectangle.left;
 
         const localCenterY =
-          currentCenter.y - viewportRect.top;
+          currentCenter.y -
+          viewportRectangle.top;
 
         zoomAtPoint(
           mapScale * scaleChange,
@@ -1142,28 +1313,69 @@ mapViewport.addEventListener(
         );
       }
 
-      previousPinchDistance = currentDistance;
-      previousPinchCenter = currentCenter;
+      previousPinchDistance =
+        currentDistance;
+
+      previousPinchCenter =
+        currentCenter;
+
+      mapWasDragged = true;
     }
   }
 );
 
+/*
+  ==================================================
+  POINTER END
+  ==================================================
+*/
+
 function endPointer(event) {
+  if (!activePointers.has(event.pointerId)) {
+    return;
+  }
+
   activePointers.delete(event.pointerId);
+
+  try {
+    mapViewport.releasePointerCapture(
+      event.pointerId
+    );
+  } catch (error) {
+    /*
+      Ignore browsers that did not capture the pointer.
+    */
+  }
 
   if (activePointers.size === 0) {
     previousSinglePointer = null;
     previousPinchDistance = null;
     previousPinchCenter = null;
 
-    mapViewport.classList.remove("is-dragging");
+    mapViewport.classList.remove(
+      "is-dragging"
+    );
+
+    if (mapWasDragged) {
+      suppressNextRoomClick = true;
+
+      /*
+        Clear the suppression shortly after the
+        browser has generated its click event.
+      */
+
+      window.setTimeout(() => {
+        suppressNextRoomClick = false;
+      }, 250);
+    }
   }
 
   if (activePointers.size === 1) {
     const remainingPointer =
       [...activePointers.values()][0];
 
-    previousSinglePointer = remainingPointer;
+    previousSinglePointer =
+      remainingPointer;
 
     previousPinchDistance = null;
     previousPinchCenter = null;
@@ -1180,8 +1392,17 @@ mapViewport.addEventListener(
   endPointer
 );
 
+mapViewport.addEventListener(
+  "lostpointercapture",
+  (event) => {
+    activePointers.delete(event.pointerId);
+  }
+);
+
 /*
-  Zoom buttons
+  ==================================================
+  ZOOM BUTTONS
+  ==================================================
 */
 
 zoomInButton.addEventListener("click", () => {
@@ -1201,7 +1422,9 @@ zoomOutButton.addEventListener("click", () => {
 });
 
 /*
-  Optional desktop trackpad/mouse-wheel zoom
+  ==================================================
+  DESKTOP MOUSE WHEEL / TRACKPAD ZOOM
+  ==================================================
 */
 
 mapViewport.addEventListener(
@@ -1209,17 +1432,21 @@ mapViewport.addEventListener(
   (event) => {
     event.preventDefault();
 
-    const viewportRect =
+    const viewportRectangle =
       mapViewport.getBoundingClientRect();
 
     const localX =
-      event.clientX - viewportRect.left;
+      event.clientX -
+      viewportRectangle.left;
 
     const localY =
-      event.clientY - viewportRect.top;
+      event.clientY -
+      viewportRectangle.top;
 
     const zoomMultiplier =
-      event.deltaY < 0 ? 1.12 : 0.89;
+      event.deltaY < 0
+        ? 1.12
+        : 0.89;
 
     zoomAtPoint(
       mapScale * zoomMultiplier,
@@ -1233,26 +1460,8 @@ mapViewport.addEventListener(
 );
 
 /*
-  Recalculate when the phone rotates.
-*/
-
-window.addEventListener("resize", () => {
-  calculateInitialMapPosition();
-});
-
-calculateInitialMapPosition();
-
-function resetMapScroll() {
-  mapViewport.scrollTo({
-    top: 0,
-    left: 0,
-    behavior: "smooth"
-  });
-}
-
-/*
   ==================================================
-  ポップアップを閉じる
+  POPUP CLOSING
   ==================================================
 */
 
@@ -1261,26 +1470,48 @@ closePopupButton.addEventListener(
   closeRoomPopup
 );
 
-roomPopup.addEventListener("click", (event) => {
-  if (event.target === roomPopup) {
-    closeRoomPopup();
+roomPopup.addEventListener(
+  "click",
+  (event) => {
+    if (event.target === roomPopup) {
+      closeRoomPopup();
+    }
   }
-});
+);
 
-document.addEventListener("keydown", (event) => {
-  if (
-    event.key === "Escape" &&
-    !roomPopup.hidden
-  ) {
-    closeRoomPopup();
+document.addEventListener(
+  "keydown",
+  (event) => {
+    if (
+      event.key === "Escape" &&
+      !roomPopup.hidden
+    ) {
+      closeRoomPopup();
+    }
   }
+);
+
+/*
+  ==================================================
+  SCREEN RESIZING
+  ==================================================
+*/
+
+let resizeTimer = null;
+
+window.addEventListener("resize", () => {
+  window.clearTimeout(resizeTimer);
+
+  resizeTimer = window.setTimeout(() => {
+    calculateInitialMapPosition();
+  }, 100);
 });
 
 /*
   ==================================================
-  初期表示
+  INITIAL PAGE SETUP
   ==================================================
 */
 
-applyZoom();
+calculateInitialMapPosition();
 renderMap();
