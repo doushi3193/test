@@ -1,37 +1,41 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1"
-  >
-
-  <title>Room page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Room Map</title>
+  <link rel="stylesheet" href="css/room.css">
+  <script src="js/room.js" defer></script>
 </head>
-
 <body>
-  <h1 id="roomName">This is a room page</h1>
+  <header class="room-header">
+    <p class="room-site-name">Welcome Festival Map</p>
+    <h1 id="roomTitle" class="room-title">Room</h1>
+  </header>
 
-  <p>This is a room page.</p>
+  <main>
+    <section class="room-map-section" aria-label="Organisations in this room">
+      <div class="room-map">
+        <div class="room-wall room-wall-top" aria-hidden="true"></div>
+        <div class="room-wall room-wall-left" aria-hidden="true"></div>
+        <div id="organisationGrid" class="organisation-grid"></div>
+      </div>
+    </section>
 
-  <a href="index.html">
-    Back to map
-  </a>
+    <div class="back-button-wrapper">
+      <a class="back-button" href="index.html">Back to Floor Map</a>
+    </div>
+  </main>
 
-  <script>
-    "use strict";
-
-    const params =
-      new URLSearchParams(window.location.search);
-
-    const roomName = params.get("name");
-
-    if (roomName) {
-      document.querySelector("#roomName").textContent =
-        roomName;
-    }
-  </script>
+  <div id="organisationPopup" class="popup-overlay" hidden>
+    <section class="organisation-popup" role="dialog" aria-modal="true" aria-labelledby="popupOrganisationName">
+      <button id="closePopupButton" class="popup-close" type="button" aria-label="Close organisation information">×</button>
+      <h2 id="popupOrganisationName" class="popup-title">Organisation</h2>
+      <p id="popupRoomName" class="popup-room-name"></p>
+      <a id="organisationWebsiteLink" class="popup-button popup-link-button" href="#" target="_blank" rel="noopener noreferrer">Open Organisation Website</a>
+      <button id="readNfcButton" class="popup-button nfc-button" type="button">Read NFC Tag</button>
+      <p id="nfcStatus" class="nfc-status" aria-live="polite"></p>
+    </section>
+  </div>
 </body>
 </html>
