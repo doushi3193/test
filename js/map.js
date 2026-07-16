@@ -20,53 +20,44 @@ const venueData = {
     name: "OIC",
 
     floors: {
-      1: {
+      3: {
         rooms: [
           {
-            id: "oic-1f-a",
-            name: "Room A101",
-            x: 80,
-            y: 110,
-            width: 130,
-            height: 95,
+            id: "as368",
+            name: "AS368",
             organisations: [
               {
                 name: "OIC Football Club",
                 category: "sports"
-              },
-              {
-                name: "International Exchange Group",
-                category: "volunteering"
               }
             ]
           },
 
           {
-            id: "oic-1f-b",
-            name: "Room A102",
-            x: 235,
-            y: 110,
-            width: 130,
-            height: 95,
+            id: "as358",
+            name: "AS358",
             organisations: [
               {
-                name: "Photography Society",
+                name: "Illustration Society",
                 category: "culture"
-              },
+              }
+            ]
+          },
+
+          {
+            id: "as357",
+            name: "AS357",
+            organisations: [
               {
-                name: "Economics Study Group",
+                name: "Language Exchange Circle",
                 category: "academic"
               }
             ]
           },
 
           {
-            id: "oic-1f-c",
-            name: "Room A103",
-            x: 390,
-            y: 110,
-            width: 130,
-            height: 95,
+            id: "as365",
+            name: "AS365",
             organisations: [
               {
                 name: "Basketball Club",
@@ -76,167 +67,41 @@ const venueData = {
           },
 
           {
-            id: "oic-1f-d",
-            name: "Room A104",
-            x: 80,
-            y: 330,
-            width: 130,
-            height: 95,
+            id: "as356",
+            name: "AS356",
             organisations: [
               {
-                name: "Volunteer Support Network",
+                name: "International Volunteers",
                 category: "volunteering"
               }
             ]
           },
 
           {
-            id: "oic-1f-e",
-            name: "Room A105",
-            x: 235,
-            y: 330,
-            width: 130,
-            height: 95,
+            id: "as364",
+            name: "AS364",
             organisations: [
               {
-                name: "Film Appreciation Society",
+                name: "Photography Society",
                 category: "culture"
               }
             ]
           },
 
           {
-            id: "oic-1f-f",
-            name: "Room A106",
-            x: 390,
-            y: 330,
-            width: 130,
-            height: 95,
+            id: "as363",
+            name: "AS363",
             organisations: [
               {
-                name: "Programming Circle",
-                category: "academic"
-              }
-            ]
-          }
-        ]
-      },
-
-      3: {
-        rooms: [
-          {
-            id: "oic-3f-a",
-            name: "Room C301",
-            x: 92,
-            y: 85,
-            width: 118,
-            height: 90,
-            organisations: [
-              {
-                name: "OIC Sports Association",
-                category: "sports"
-              },
-              {
-                name: "Table Tennis Club",
-                category: "sports"
-              }
-            ]
-          },
-
-          {
-            id: "oic-3f-b",
-            name: "Room C302",
-            x: 240,
-            y: 85,
-            width: 118,
-            height: 90,
-            organisations: [
-              {
-                name: "Organisation A",
-                category: "culture"
-              },
-              {
-                name: "Traditional Music Circle",
-                category: "culture"
-              }
-            ]
-          },
-
-          {
-            id: "oic-3f-c",
-            name: "Room C303",
-            x: 388,
-            y: 85,
-            width: 118,
-            height: 90,
-            organisations: [
-              {
-                name: "Academic Research Society",
+                name: "Economics Study Group",
                 category: "academic"
               }
             ]
           },
 
           {
-            id: "oic-3f-d",
-            name: "Room C304",
-            x: 92,
-            y: 250,
-            width: 118,
-            height: 100,
-            organisations: [
-              {
-                name: "Organisation B",
-                category: "volunteering"
-              }
-            ]
-          },
-
-          {
-            id: "oic-3f-e",
-            name: "Room C305",
-            x: 240,
-            y: 250,
-            width: 118,
-            height: 100,
-            organisations: [
-              {
-                name: "Debate Society",
-                category: "academic"
-              },
-              {
-                name: "Language Learning Circle",
-                category: "academic"
-              }
-            ]
-          },
-
-          {
-            id: "oic-3f-f",
-            name: "Room C306",
-            x: 388,
-            y: 250,
-            width: 118,
-            height: 100,
-            organisations: [
-              {
-                name: "Dance Club",
-                category: "culture"
-              },
-              {
-                name: "Community Support Group",
-                category: "volunteering"
-              }
-            ]
-          },
-
-          {
-            id: "oic-3f-g",
-            name: "Room C307",
-            x: 92,
-            y: 430,
-            width: 118,
-            height: 100,
+            id: "as362",
+            name: "AS362",
             organisations: [
               {
                 name: "Tennis Club",
@@ -246,12 +111,151 @@ const venueData = {
           },
 
           {
-            id: "oic-3f-h",
-            name: "Room C308",
-            x: 240,
-            y: 430,
-            width: 118,
-            height: 100,
+            id: "as361",
+            name: "AS361",
+            organisations: [
+              {
+                name: "Community Support Group",
+                category: "volunteering"
+              }
+            ]
+          },
+
+          {
+            id: "ps-lounge",
+            name: "PS Lounge",
+            organisations: [
+              {
+                name: "Student Support Team",
+                category: "volunteering"
+              }
+            ]
+          },
+
+          {
+            id: "ac348",
+            name: "AC348",
+            organisations: [
+              {
+                name: "Programming Circle",
+                category: "academic"
+              }
+            ]
+          },
+
+          {
+            id: "ac338",
+            name: "AC338",
+            organisations: [
+              {
+                name: "Dance Club",
+                category: "culture"
+              }
+            ]
+          },
+
+          {
+            id: "ac337",
+            name: "AC337",
+            organisations: [
+              {
+                name: "Badminton Club",
+                category: "sports"
+              }
+            ]
+          },
+
+          {
+            id: "ac345",
+            name: "AC345",
+            organisations: [
+              {
+                name: "Debate Society",
+                category: "academic"
+              }
+            ]
+          },
+
+          {
+            id: "ac336",
+            name: "AC336",
+            organisations: [
+              {
+                name: "Film Appreciation Circle",
+                category: "culture"
+              }
+            ]
+          },
+
+          {
+            id: "ac344",
+            name: "AC344",
+            organisations: [
+              {
+                name: "Environmental Volunteers",
+                category: "volunteering"
+              }
+            ]
+          },
+
+          {
+            id: "ac343",
+            name: "AC343",
+            organisations: [
+              {
+                name: "Table Tennis Club",
+                category: "sports"
+              }
+            ]
+          },
+
+          {
+            id: "ac342",
+            name: "AC342",
+            organisations: [
+              {
+                name: "Research Association",
+                category: "academic"
+              }
+            ]
+          },
+
+          {
+            id: "ac341",
+            name: "AC341",
+            organisations: [
+              {
+                name: "Traditional Music Circle",
+                category: "culture"
+              }
+            ]
+          },
+
+          {
+            id: "ba-house",
+            name: "BA House",
+            organisations: [
+              {
+                name: "Business Administration Society",
+                category: "academic"
+              }
+            ]
+          },
+
+          {
+            id: "an328",
+            name: "AN328",
+            organisations: [
+              {
+                name: "Volleyball Club",
+                category: "sports"
+              }
+            ]
+          },
+
+          {
+            id: "an327",
+            name: "AN327",
             organisations: [
               {
                 name: "Art Circle",
@@ -261,82 +265,19 @@ const venueData = {
           },
 
           {
-            id: "oic-3f-i",
-            name: "Room C309",
-            x: 388,
-            y: 430,
-            width: 118,
-            height: 100,
+            id: "an325",
+            name: "AN325",
             organisations: [
               {
-                name: "Environmental Volunteers",
-                category: "volunteering"
-              }
-            ]
-          }
-        ]
-      }
-    }
-  },
-
-  kic: {
-    name: "KIC",
-
-    floors: {
-      1: {
-        rooms: [
-          {
-            id: "kic-1f-a",
-            name: "Room K101",
-            x: 75,
-            y: 90,
-            width: 145,
-            height: 100,
-            organisations: [
-              {
-                name: "KIC Baseball Club",
-                category: "sports"
-              }
-            ]
-          },
-
-          {
-            id: "kic-1f-b",
-            name: "Room K102",
-            x: 250,
-            y: 90,
-            width: 145,
-            height: 100,
-            organisations: [
-              {
-                name: "KIC Art Society",
-                category: "culture"
-              }
-            ]
-          },
-
-          {
-            id: "kic-1f-c",
-            name: "Room K103",
-            x: 425,
-            y: 90,
-            width: 100,
-            height: 100,
-            organisations: [
-              {
-                name: "Legal Studies Group",
+                name: "Academic Research Society",
                 category: "academic"
               }
             ]
           },
 
           {
-            id: "kic-1f-d",
-            name: "Room K104",
-            x: 75,
-            y: 300,
-            width: 145,
-            height: 105,
+            id: "an324",
+            name: "AN324",
             organisations: [
               {
                 name: "Local Community Volunteers",
@@ -346,46 +287,19 @@ const venueData = {
           },
 
           {
-            id: "kic-1f-e",
-            name: "Room K105",
-            x: 250,
-            y: 300,
-            width: 145,
-            height: 105,
+            id: "an323",
+            name: "AN323",
             organisations: [
               {
-                name: "KIC Theatre Club",
-                category: "culture"
-              }
-            ]
-          }
-        ]
-      },
-
-      3: {
-        rooms: [
-          {
-            id: "kic-3f-a",
-            name: "Room K301",
-            x: 75,
-            y: 100,
-            width: 135,
-            height: 105,
-            organisations: [
-              {
-                name: "KIC Volleyball Club",
+                name: "Running Club",
                 category: "sports"
               }
             ]
           },
 
           {
-            id: "kic-3f-b",
-            name: "Room K302",
-            x: 235,
-            y: 100,
-            width: 135,
-            height: 105,
+            id: "an322",
+            name: "AN322",
             organisations: [
               {
                 name: "Literature Circle",
@@ -395,47 +309,24 @@ const venueData = {
           },
 
           {
-            id: "kic-3f-c",
-            name: "Room K303",
-            x: 395,
-            y: 100,
-            width: 135,
-            height: 105,
+            id: "an321",
+            name: "AN321",
             organisations: [
               {
-                name: "Political Science Society",
+                name: "Organisation A",
                 category: "academic"
-              }
-            ]
-          },
-
-          {
-            id: "kic-3f-d",
-            name: "Room K304",
-            x: 75,
-            y: 330,
-            width: 135,
-            height: 105,
-            organisations: [
+              },
               {
-                name: "Children Support Volunteers",
+                name: "Organisation B",
                 category: "volunteering"
               }
             ]
           },
 
           {
-            id: "kic-3f-e",
-            name: "Room K305",
-            x: 235,
-            y: 330,
-            width: 135,
-            height: 105,
+            id: "an316",
+            name: "AN316",
             organisations: [
-              {
-                name: "KIC Badminton Club",
-                category: "sports"
-              },
               {
                 name: "Media Production Circle",
                 category: "culture"
@@ -444,16 +335,34 @@ const venueData = {
           },
 
           {
-            id: "kic-3f-f",
-            name: "Room K306",
-            x: 395,
-            y: 330,
-            width: 135,
-            height: 105,
+            id: "student-lounge",
+            name: "Student Lounge",
+            organisations: [
+              {
+                name: "Student Volunteer Network",
+                category: "volunteering"
+              }
+            ]
+          },
+
+          {
+            id: "ac330",
+            name: "AC330",
             organisations: [
               {
                 name: "Technology Research Group",
                 category: "academic"
+              }
+            ]
+          },
+
+          {
+            id: "an310",
+            name: "AN310",
+            organisations: [
+              {
+                name: "Sports Association",
+                category: "sports"
               }
             ]
           }
@@ -462,6 +371,41 @@ const venueData = {
     }
   }
 };
+
+const svgRoomElements =
+  document.querySelectorAll("#oic3fMap .map-room");
+
+svgRoomElements.forEach((roomElement) => {
+  function openThisRoom() {
+    const roomId = roomElement.dataset.roomId;
+    const room = getRoomById(roomId);
+
+    if (!room) {
+      return;
+    }
+
+    openRoomPopup(room);
+  }
+
+  roomElement.addEventListener("click", () => {
+  if (mapWasDragged) {
+    mapWasDragged = false;
+    return;
+  }
+
+  openThisRoom();
+});
+
+  roomElement.addEventListener("keydown", (event) => {
+    if (
+      event.key === "Enter" ||
+      event.key === " "
+    ) {
+      event.preventDefault();
+      openThisRoom();
+    }
+  });
+});
 
 /*
   ==================================================
@@ -473,11 +417,8 @@ let currentVenue = "oic";
 let currentFloor = 3;
 let activeCategory = null;
 let searchText = "";
-let zoomLevel = 0.62;
 
-const minimumZoom = 0.52;
-const maximumZoom = 1.15;
-const zoomStep = 0.12;
+let mapWasDragged = false;
 
 /*
   ==================================================
@@ -514,51 +455,56 @@ const roomPageLink = document.querySelector("#roomPageLink");
   ==================================================
 */
 
+function getCurrentRooms() {
+  const venue = venueData[currentVenue];
+  const floor = venue?.floors?.[currentFloor];
+
+  return floor?.rooms ?? [];
+}
+
+function getRoomById(roomId) {
+  return getCurrentRooms().find((room) => {
+    return room.id === roomId;
+  });
+}
+
 function renderMap() {
-  mapCanvas.innerHTML = "";
+  const roomElements =
+    document.querySelectorAll("#oic3fMap .map-room");
 
-  createCorridors();
+  const filterIsActive =
+    searchText !== "" || activeCategory !== null;
 
-  const floorData =
-    venueData[currentVenue].floors[currentFloor];
+  roomElements.forEach((roomElement) => {
+    const roomId = roomElement.dataset.roomId;
+    const room = getRoomById(roomId);
 
-  floorData.rooms.forEach((room) => {
-    const roomButton = document.createElement("button");
+    roomElement.classList.remove(
+      "has-match",
+      "is-dimmed"
+    );
 
-    roomButton.type = "button";
-    roomButton.className = "map-room";
-    roomButton.textContent = room.name;
-
-    roomButton.style.left = `${room.x}px`;
-    roomButton.style.top = `${room.y}px`;
-    roomButton.style.width = `${room.width}px`;
-    roomButton.style.height = `${room.height}px`;
+    if (!room) {
+      roomElement.classList.add("is-dimmed");
+      return;
+    }
 
     const matchingOrganisations =
       getMatchingOrganisations(room);
-
-    const filterIsActive =
-      searchText !== "" || activeCategory !== null;
 
     if (
       filterIsActive &&
       matchingOrganisations.length > 0
     ) {
-      roomButton.classList.add("has-match");
+      roomElement.classList.add("has-match");
     }
 
     if (
       filterIsActive &&
       matchingOrganisations.length === 0
     ) {
-      roomButton.classList.add("is-dimmed");
+      roomElement.classList.add("is-dimmed");
     }
-
-    roomButton.addEventListener("click", () => {
-      openRoomPopup(room);
-    });
-
-    mapCanvas.appendChild(roomButton);
   });
 
   updateSearchMessage();
@@ -932,28 +878,369 @@ categoryButtons.forEach((button) => {
   ==================================================
 */
 
-function applyZoom() {
-  mapCanvas.style.transform =
-    `scale(${zoomLevel})`;
-}
+/*
+  ==================================================
+  Touch zoom and pan
+  ==================================================
+*/
 
-zoomInButton.addEventListener("click", () => {
-  zoomLevel = Math.min(
-    maximumZoom,
-    zoomLevel + zoomStep
+const mapViewport =
+  document.querySelector("#mapViewport");
+
+const mapTransformLayer =
+  document.querySelector("#mapTransformLayer");
+
+const zoomInButton =
+  document.querySelector("#zoomInButton");
+
+const zoomOutButton =
+  document.querySelector("#zoomOutButton");
+
+const MAP_WIDTH = 760;
+const MAP_HEIGHT = 650;
+
+let mapScale = 1;
+let minimumMapScale = 1;
+let maximumMapScale = 3.2;
+
+let mapX = 0;
+let mapY = 0;
+
+const activePointers = new Map();
+
+let previousSinglePointer = null;
+let previousPinchDistance = null;
+let previousPinchCenter = null;
+
+function calculateInitialMapPosition() {
+  const viewportWidth = mapViewport.clientWidth;
+  const viewportHeight = mapViewport.clientHeight;
+
+  const widthScale = viewportWidth / MAP_WIDTH;
+  const heightScale = viewportHeight / MAP_HEIGHT;
+
+  /*
+    Fit the complete map inside the initial view.
+  */
+  minimumMapScale = Math.min(
+    widthScale,
+    heightScale
   );
 
-  applyZoom();
+  mapScale = minimumMapScale;
+
+  mapX =
+    (viewportWidth - MAP_WIDTH * mapScale) / 2;
+
+  mapY =
+    (viewportHeight - MAP_HEIGHT * mapScale) / 2;
+
+  constrainMapPosition();
+  applyMapTransform();
+}
+
+function applyMapTransform() {
+  mapTransformLayer.style.transform =
+    `translate(${mapX}px, ${mapY}px) scale(${mapScale})`;
+}
+
+function constrainMapPosition() {
+  const viewportWidth = mapViewport.clientWidth;
+  const viewportHeight = mapViewport.clientHeight;
+
+  const scaledWidth = MAP_WIDTH * mapScale;
+  const scaledHeight = MAP_HEIGHT * mapScale;
+
+  if (scaledWidth <= viewportWidth) {
+    mapX = (viewportWidth - scaledWidth) / 2;
+  } else {
+    const minimumX = viewportWidth - scaledWidth;
+    mapX = Math.min(0, Math.max(minimumX, mapX));
+  }
+
+  if (scaledHeight <= viewportHeight) {
+    mapY = (viewportHeight - scaledHeight) / 2;
+  } else {
+    const minimumY = viewportHeight - scaledHeight;
+    mapY = Math.min(0, Math.max(minimumY, mapY));
+  }
+}
+
+function getDistance(firstPoint, secondPoint) {
+  return Math.hypot(
+    secondPoint.x - firstPoint.x,
+    secondPoint.y - firstPoint.y
+  );
+}
+
+function getCenter(firstPoint, secondPoint) {
+  return {
+    x: (firstPoint.x + secondPoint.x) / 2,
+    y: (firstPoint.y + secondPoint.y) / 2
+  };
+}
+
+function zoomAtPoint(newScale, screenX, screenY) {
+  const limitedScale = Math.min(
+    maximumMapScale,
+    Math.max(minimumMapScale, newScale)
+  );
+
+  /*
+    Convert the finger position into map coordinates
+    before changing scale.
+  */
+  const mapPointX =
+    (screenX - mapX) / mapScale;
+
+  const mapPointY =
+    (screenY - mapY) / mapScale;
+
+  mapScale = limitedScale;
+
+  /*
+    Keep the same map point under the finger.
+  */
+  mapX =
+    screenX - mapPointX * mapScale;
+
+  mapY =
+    screenY - mapPointY * mapScale;
+
+  constrainMapPosition();
+  applyMapTransform();
+}
+
+const movementX =
+  currentPointer.x - previousSinglePointer.x;
+
+const movementY =
+  currentPointer.y - previousSinglePointer.y;
+
+if (
+  Math.abs(movementX) > 3 ||
+  Math.abs(movementY) > 3
+) {
+  mapWasDragged = true;
+}
+
+mapX += movementX;
+mapY += movementY;
+
+mapViewport.addEventListener(
+  "pointerdown",
+  (event) => {
+    
+    mapViewport.setPointerCapture(event.pointerId);
+
+    if (activePointers.size === 0) {
+      mapWasDragged = false;
+    }
+
+    activePointers.set(event.pointerId, {
+      x: event.clientX,
+      y: event.clientY
+    });
+
+    mapViewport.classList.add("is-dragging");
+
+    if (activePointers.size === 1) {
+      previousSinglePointer = {
+        x: event.clientX,
+        y: event.clientY
+      };
+    }
+
+    if (activePointers.size === 2) {
+      const points = [...activePointers.values()];
+
+      previousPinchDistance =
+        getDistance(points[0], points[1]);
+
+      previousPinchCenter =
+        getCenter(points[0], points[1]);
+
+      previousSinglePointer = null;
+    }
+  }
+);
+
+mapViewport.addEventListener(
+  "pointermove",
+  (event) => {
+    if (!activePointers.has(event.pointerId)) {
+      return;
+    }
+
+    activePointers.set(event.pointerId, {
+      x: event.clientX,
+      y: event.clientY
+    });
+
+    if (
+      activePointers.size === 1 &&
+      previousSinglePointer
+    ) {
+      const currentPointer =
+        [...activePointers.values()][0];
+
+      mapX +=
+        currentPointer.x -
+        previousSinglePointer.x;
+
+      mapY +=
+        currentPointer.y -
+        previousSinglePointer.y;
+
+      previousSinglePointer = currentPointer;
+
+      constrainMapPosition();
+      applyMapTransform();
+    }
+
+    if (activePointers.size === 2) {
+      const points = [...activePointers.values()];
+
+      const currentDistance =
+        getDistance(points[0], points[1]);
+
+      const currentCenter =
+        getCenter(points[0], points[1]);
+
+      if (
+        previousPinchDistance &&
+        previousPinchCenter
+      ) {
+        const scaleChange =
+          currentDistance / previousPinchDistance;
+
+        /*
+          Move the map along with the centre of
+          the two fingers.
+        */
+        mapX +=
+          currentCenter.x -
+          previousPinchCenter.x;
+
+        mapY +=
+          currentCenter.y -
+          previousPinchCenter.y;
+
+        const viewportRect =
+          mapViewport.getBoundingClientRect();
+
+        const localCenterX =
+          currentCenter.x - viewportRect.left;
+
+        const localCenterY =
+          currentCenter.y - viewportRect.top;
+
+        zoomAtPoint(
+          mapScale * scaleChange,
+          localCenterX,
+          localCenterY
+        );
+      }
+
+      previousPinchDistance = currentDistance;
+      previousPinchCenter = currentCenter;
+    }
+  }
+);
+
+function endPointer(event) {
+  activePointers.delete(event.pointerId);
+
+  if (activePointers.size === 0) {
+    previousSinglePointer = null;
+    previousPinchDistance = null;
+    previousPinchCenter = null;
+
+    mapViewport.classList.remove("is-dragging");
+  }
+
+  if (activePointers.size === 1) {
+    const remainingPointer =
+      [...activePointers.values()][0];
+
+    previousSinglePointer = remainingPointer;
+
+    previousPinchDistance = null;
+    previousPinchCenter = null;
+  }
+}
+
+mapViewport.addEventListener(
+  "pointerup",
+  endPointer
+);
+
+mapViewport.addEventListener(
+  "pointercancel",
+  endPointer
+);
+
+/*
+  Zoom buttons
+*/
+
+zoomInButton.addEventListener("click", () => {
+  zoomAtPoint(
+    mapScale * 1.25,
+    mapViewport.clientWidth / 2,
+    mapViewport.clientHeight / 2
+  );
 });
 
 zoomOutButton.addEventListener("click", () => {
-  zoomLevel = Math.max(
-    minimumZoom,
-    zoomLevel - zoomStep
+  zoomAtPoint(
+    mapScale / 1.25,
+    mapViewport.clientWidth / 2,
+    mapViewport.clientHeight / 2
   );
-
-  applyZoom();
 });
+
+/*
+  Optional desktop trackpad/mouse-wheel zoom
+*/
+
+mapViewport.addEventListener(
+  "wheel",
+  (event) => {
+    event.preventDefault();
+
+    const viewportRect =
+      mapViewport.getBoundingClientRect();
+
+    const localX =
+      event.clientX - viewportRect.left;
+
+    const localY =
+      event.clientY - viewportRect.top;
+
+    const zoomMultiplier =
+      event.deltaY < 0 ? 1.12 : 0.89;
+
+    zoomAtPoint(
+      mapScale * zoomMultiplier,
+      localX,
+      localY
+    );
+  },
+  {
+    passive: false
+  }
+);
+
+/*
+  Recalculate when the phone rotates.
+*/
+
+window.addEventListener("resize", () => {
+  calculateInitialMapPosition();
+});
+
+calculateInitialMapPosition();
 
 function resetMapScroll() {
   mapViewport.scrollTo({

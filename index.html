@@ -91,31 +91,483 @@
       </div>
 
       <div class="map-viewport" id="mapViewport">
-        <div class="map-canvas" id="mapCanvas">
-          <!-- JavaScriptで地図を表示します -->
-        </div>
-      </div>
+  <div class="map-transform-layer" id="mapTransformLayer">
+
+    <svg
+      id="oic3fMap"
+      class="floor-map"
+      viewBox="0 0 760 650"
+      role="img"
+      aria-label="OIC third floor map"
+    >
+      <!-- =========================
+           GREEN FLOOR / CORRIDORS
+      ========================== -->
+
+      <!-- Top-left block -->
+      <rect
+        class="map-building"
+        x="48"
+        y="90"
+        width="200"
+        height="405"
+      />
+
+      <!-- Top-middle block -->
+      <rect
+        class="map-building"
+        x="325"
+        y="90"
+        width="150"
+        height="405"
+      />
+
+      <!-- Top-right block -->
+      <rect
+        class="map-building"
+        x="560"
+        y="90"
+        width="150"
+        height="405"
+      />
+
+      <!-- Upper horizontal corridor -->
+      <rect
+        class="map-building"
+        x="0"
+        y="190"
+        width="760"
+        height="44"
+      />
+
+      <!-- Lower horizontal corridor -->
+      <rect
+        class="map-building"
+        x="0"
+        y="420"
+        width="760"
+        height="72"
+      />
+
+      <!-- AC330 lower projection -->
+      <rect
+        class="map-building"
+        x="325"
+        y="480"
+        width="150"
+        height="130"
+      />
+
+      <!-- AN310 lower projection -->
+      <rect
+        class="map-building"
+        x="560"
+        y="480"
+        width="150"
+        height="130"
+      />
+
+      <!-- Right extension for student lounge -->
+      <rect
+        class="map-building"
+        x="700"
+        y="180"
+        width="60"
+        height="312"
+      />
+
+      <!-- =========================
+           LEFT BLOCK: AS ROOMS
+      ========================== -->
+
+      <g
+        class="map-room"
+        data-room-id="as368"
+        tabindex="0"
+        role="button"
+        aria-label="AS368"
+      >
+        <rect x="63" y="107" width="55" height="36" />
+        <text x="90.5" y="129">AS368</text>
+      </g>
+
+      <g
+        class="map-room"
+        data-room-id="as358"
+        tabindex="0"
+        role="button"
+        aria-label="AS358"
+      >
+        <rect x="130" y="107" width="55" height="36" />
+        <text x="157.5" y="129">AS358</text>
+      </g>
+
+      <g
+        class="map-room"
+        data-room-id="as357"
+        tabindex="0"
+        role="button"
+        aria-label="AS357"
+      >
+        <rect x="130" y="148" width="55" height="36" />
+        <text x="157.5" y="170">AS357</text>
+      </g>
+
+      <g
+        class="map-room"
+        data-room-id="as365"
+        tabindex="0"
+        role="button"
+        aria-label="AS365"
+      >
+        <rect x="63" y="242" width="55" height="36" />
+        <text x="90.5" y="264">AS365</text>
+      </g>
+
+      <g
+        class="map-room"
+        data-room-id="as356"
+        tabindex="0"
+        role="button"
+        aria-label="AS356"
+      >
+        <rect x="130" y="242" width="55" height="36" />
+        <text x="157.5" y="264">AS356</text>
+      </g>
+
+      <g
+        class="map-room"
+        data-room-id="as364"
+        tabindex="0"
+        role="button"
+        aria-label="AS364"
+      >
+        <rect x="63" y="282" width="55" height="36" />
+        <text x="90.5" y="304">AS364</text>
+      </g>
+
+      <g
+        class="map-room"
+        data-room-id="as363"
+        tabindex="0"
+        role="button"
+        aria-label="AS363"
+      >
+        <rect x="63" y="322" width="55" height="36" />
+        <text x="90.5" y="344">AS363</text>
+      </g>
+
+      <g
+        class="map-room"
+        data-room-id="as362"
+        tabindex="0"
+        role="button"
+        aria-label="AS362"
+      >
+        <rect x="63" y="362" width="55" height="36" />
+        <text x="90.5" y="384">AS362</text>
+      </g>
+
+      <g
+        class="map-room"
+        data-room-id="as361"
+        tabindex="0"
+        role="button"
+        aria-label="AS361"
+      >
+        <rect x="63" y="402" width="55" height="36" />
+        <text x="90.5" y="424">AS361</text>
+      </g>
+
+      <g
+        class="map-room map-room-tall"
+        data-room-id="ps-lounge"
+        tabindex="0"
+        role="button"
+        aria-label="PS Lounge"
+      >
+        <rect x="130" y="282" width="55" height="156" />
+
+        <text x="157.5" y="350">
+          <tspan x="157.5" dy="0">PS</tspan>
+          <tspan x="157.5" dy="18">Lounge</tspan>
+        </text>
+      </g>
+
+      <!-- =========================
+           MIDDLE BLOCK: AC ROOMS
+      ========================== -->
+
+      <g
+        class="map-room"
+        data-room-id="ac348"
+        tabindex="0"
+        role="button"
+        aria-label="AC348"
+      >
+        <rect x="337" y="107" width="55" height="36" />
+        <text x="364.5" y="129">AC348</text>
+      </g>
+
+      <g
+        class="map-room"
+        data-room-id="ac338"
+        tabindex="0"
+        role="button"
+        aria-label="AC338"
+      >
+        <rect x="405" y="107" width="55" height="36" />
+        <text x="432.5" y="129">AC338</text>
+      </g>
+
+      <g
+        class="map-room"
+        data-room-id="ac337"
+        tabindex="0"
+        role="button"
+        aria-label="AC337"
+      >
+        <rect x="405" y="148" width="55" height="36" />
+        <text x="432.5" y="170">AC337</text>
+      </g>
+
+      <g
+        class="map-room"
+        data-room-id="ac345"
+        tabindex="0"
+        role="button"
+        aria-label="AC345"
+      >
+        <rect x="337" y="242" width="55" height="36" />
+        <text x="364.5" y="264">AC345</text>
+      </g>
+
+      <g
+        class="map-room"
+        data-room-id="ac336"
+        tabindex="0"
+        role="button"
+        aria-label="AC336"
+      >
+        <rect x="405" y="242" width="55" height="36" />
+        <text x="432.5" y="264">AC336</text>
+      </g>
+
+      <g
+        class="map-room"
+        data-room-id="ac344"
+        tabindex="0"
+        role="button"
+        aria-label="AC344"
+      >
+        <rect x="337" y="282" width="55" height="36" />
+        <text x="364.5" y="304">AC344</text>
+      </g>
+
+      <g
+        class="map-room"
+        data-room-id="ac343"
+        tabindex="0"
+        role="button"
+        aria-label="AC343"
+      >
+        <rect x="337" y="322" width="55" height="36" />
+        <text x="364.5" y="344">AC343</text>
+      </g>
+
+      <g
+        class="map-room"
+        data-room-id="ac342"
+        tabindex="0"
+        role="button"
+        aria-label="AC342"
+      >
+        <rect x="337" y="362" width="55" height="36" />
+        <text x="364.5" y="384">AC342</text>
+      </g>
+
+      <g
+        class="map-room"
+        data-room-id="ac341"
+        tabindex="0"
+        role="button"
+        aria-label="AC341"
+      >
+        <rect x="337" y="402" width="55" height="36" />
+        <text x="364.5" y="424">AC341</text>
+      </g>
+
+      <g
+        class="map-room map-room-tall"
+        data-room-id="ba-house"
+        tabindex="0"
+        role="button"
+        aria-label="BA House"
+      >
+        <rect x="405" y="282" width="55" height="156" />
+
+        <text x="432.5" y="350">
+          <tspan x="432.5" dy="0">BA</tspan>
+          <tspan x="432.5" dy="18">House</tspan>
+        </text>
+      </g>
+
+      <!-- =========================
+           RIGHT BLOCK: AN ROOMS
+      ========================== -->
+
+      <g
+        class="map-room"
+        data-room-id="an328"
+        tabindex="0"
+        role="button"
+        aria-label="AN328"
+      >
+        <rect x="572" y="107" width="55" height="36" />
+        <text x="599.5" y="129">AN328</text>
+      </g>
+
+      <g
+        class="map-room"
+        data-room-id="an327"
+        tabindex="0"
+        role="button"
+        aria-label="AN327"
+      >
+        <rect x="572" y="148" width="55" height="36" />
+        <text x="599.5" y="170">AN327</text>
+      </g>
+
+      <g
+        class="map-room"
+        data-room-id="an325"
+        tabindex="0"
+        role="button"
+        aria-label="AN325"
+      >
+        <rect x="572" y="242" width="55" height="36" />
+        <text x="599.5" y="264">AN325</text>
+      </g>
+
+      <g
+        class="map-room"
+        data-room-id="an324"
+        tabindex="0"
+        role="button"
+        aria-label="AN324"
+      >
+        <rect x="572" y="282" width="55" height="36" />
+        <text x="599.5" y="304">AN324</text>
+      </g>
+
+      <g
+        class="map-room"
+        data-room-id="an323"
+        tabindex="0"
+        role="button"
+        aria-label="AN323"
+      >
+        <rect x="572" y="322" width="55" height="36" />
+        <text x="599.5" y="344">AN323</text>
+      </g>
+
+      <g
+        class="map-room"
+        data-room-id="an322"
+        tabindex="0"
+        role="button"
+        aria-label="AN322"
+      >
+        <rect x="572" y="362" width="55" height="36" />
+        <text x="599.5" y="384">AN322</text>
+      </g>
+
+      <g
+        class="map-room has-match"
+        data-room-id="an321"
+        tabindex="0"
+        role="button"
+        aria-label="AN321"
+      >
+        <rect x="572" y="402" width="55" height="36" />
+        <text x="599.5" y="424">AN321</text>
+      </g>
+
+      <g
+        class="map-room"
+        data-room-id="an316"
+        tabindex="0"
+        role="button"
+        aria-label="AN316"
+      >
+        <rect x="640" y="197" width="55" height="36" />
+        <text x="667.5" y="219">AN316</text>
+      </g>
+
+      <g
+        class="map-room map-room-tall student-lounge"
+        data-room-id="student-lounge"
+        tabindex="0"
+        role="button"
+        aria-label="Student Lounge"
+      >
+        <rect x="640" y="242" width="55" height="196" />
+
+        <text x="667.5" y="332">
+          <tspan x="667.5" dy="0">Student</tspan>
+          <tspan x="667.5" dy="18">Lounge</tspan>
+        </text>
+      </g>
+
+      <!-- =========================
+           LOWER ROOMS
+      ========================== -->
+
+      <g
+        class="map-room map-room-large"
+        data-room-id="ac330"
+        tabindex="0"
+        role="button"
+        aria-label="AC330"
+      >
+        <rect x="337" y="505" width="123" height="85" />
+        <text x="398.5" y="551">AC330</text>
+      </g>
+
+      <g
+        class="map-room map-room-large"
+        data-room-id="an310"
+        tabindex="0"
+        role="button"
+        aria-label="AN310"
+      >
+        <rect x="572" y="505" width="123" height="85" />
+        <text x="633.5" y="551">AN310</text>
+      </g>
+    </svg>
+  </div>
+</div>
 
       <!-- 拡大縮小 -->
       <div class="zoom-controls">
         <button
-            id="zoomInButton"
-            class="zoom-button zoom-in-button"
-            type="button"
-            aria-label="Zoom in"
-            >
-            ＋
+          id="zoomInButton"
+          class="zoom-button zoom-in-button"
+          type="button"
+          aria-label="Zoom in"
+        >
+          +
         </button>
 
         <button
           id="zoomOutButton"
           class="zoom-button"
           type="button"
-          aria-label="地図を縮小"
+          aria-label="Zoom out"
         >
           −
         </button>
-      </div>
+    </div>
     </section>
 
     <!-- カテゴリー -->

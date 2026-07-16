@@ -215,118 +215,190 @@ input {
   display: none;
 }
 
-/*
-  600 × 720の仮想キャンバスを縮小表示します。
-  すべての部屋はこの中に絶対配置されます。
-*/
-
-.map-canvas {
-  position: relative;
-  width: 600px;
-  height: 720px;
-  margin: 0 auto;
-  transform: scale(0.62);
-  transform-origin: top center;
-  transition: transform 0.18s ease;
-}
-
-/* =========================
-   地図の廊下
-========================= */
-
-.map-corridor {
-  position: absolute;
-  background: #79b875;
-  pointer-events: none;
-}
-
-.corridor-horizontal {
-  height: 56px;
-}
-
-.corridor-vertical {
-  width: 62px;
-}
-
 /* =========================
    部屋
 ========================= */
+/* =========================
+   Exact SVG map
+========================= */
+
+.map-section {
+  position: relative;
+  padding: 18px 0 24px;
+  overflow: hidden;
+  background: #eeeeee;
+}
+
+.map-viewport {
+  position: relative;
+  width: 100%;
+  height: min(92vw, 690px);
+  min-height: 500px;
+  overflow: hidden;
+
+  /*
+    JavaScript handles one-finger dragging and
+    two-finger pinch zoom.
+  */
+  touch-action: none;
+
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.map-viewport.is-dragging {
+  cursor: grabbing;
+}
+
+.map-transform-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 760px;
+  height: 650px;
+
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+.floor-map {
+  display: block;
+  width: 760px;
+  height: 650px;
+  overflow: visible;
+}
+
+/* Green walls and corridors */
+
+.map-building {
+  fill: #78b672;
+}
+
+/* Rooms */
 
 .map-room {
-  position: absolute;
-  display: grid;
-  place-items: center;
-  padding: 4px;
-  border: 4px solid #79b875;
-  border-radius: 2px;
-  background: #eeeeee;
-  color: #222222;
-  font-size: 0.85rem;
-  font-weight: 700;
-  text-align: center;
+  cursor: pointer;
+  outline: none;
+}
+
+.map-room rect {
+  fill: #eeeeee;
+  stroke: #78b672;
+  stroke-width: 3px;
+
   transition:
-    background-color 0.2s,
-    color 0.2s,
-    transform 0.15s;
+    fill 160ms ease,
+    stroke 160ms ease,
+    opacity 160ms ease;
 }
 
-.map-room:active {
-  transform: scale(0.94);
-}
+.map-room text {
+  fill: #111111;
+  font-family:
+    Arial,
+    "Noto Sans JP",
+    sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-anchor: middle;
+  dominant-baseline: middle;
 
-.map-room.has-match {
-  border-color: var(--red-dark);
-  color: #ffffff;
-  background: var(--red);
-}
-
-.map-room.has-match::after {
-  content: "";
-  position: absolute;
-  inset: -7px;
-  border: 3px solid rgb(220 48 33 / 25%);
   pointer-events: none;
+
+  transition:
+    fill 160ms ease,
+    opacity 160ms ease;
 }
 
-.map-room.is-dimmed {
-  color: #aaaaaa;
-  background: #e7e7e7;
+/* Search/category result */
+
+.map-room.has-match rect {
+  fill: #df3024;
+  stroke: #df3024;
 }
 
-/* =========================
-   ズームボタン
-========================= */
+.map-room.has-match text {
+  fill: #ffffff;
+}
+
+/* Rooms that do not meet an active filter */
+
+.map-room.is-dimmed rect {
+  opacity: 0.7;
+}
+
+.map-room.is-dimmed text {
+  opacity: 0.65;
+}
+
+/* Touch/keyboard feedback */
+
+.map-room:active rect,
+.map-room.is-pressed rect {
+  filter: brightness(0.88);
+}
+
+.map-room:focus-visible rect {
+  stroke: #111111;
+  stroke-width: 5px;
+}
+
+/* Zoom controls */
 
 .zoom-controls {
   position: absolute;
   right: 14px;
-  bottom: 50px;
+  bottom: 28px;
   z-index: 10;
+
   display: flex;
   flex-direction: column;
+
   overflow: hidden;
   border-radius: 999px;
-  background: #c3d4c2;
+  background: #c5d7c3;
 }
 
 .zoom-button {
   display: grid;
   place-items: center;
-  width: 56px;
-  height: 53px;
+
+  width: 52px;
+  height: 48px;
+
+  padding: 0;
   border: 0;
+
+  color: #000000;
   background: transparent;
-  font-size: 2.1rem;
+
+  font-size: 1.65rem;
   font-weight: 800;
   line-height: 1;
+}
+
+.zoom-in-button {
+  font-size: 1.35rem;
 }
 
 .zoom-button:active {
   background: rgb(0 0 0 / 8%);
 }
 
-.zoom-in-button {
-  font-size: 1.6rem;
+/* Phone adjustment */
+
+@media (max-width: 380px) {
+  .map-viewport {
+    height: 540px;
+    min-height: 540px;
+  }
+
+  .zoom-button {
+    width: 47px;
+    height: 44px;
+  }
 }
 
 /* =========================
