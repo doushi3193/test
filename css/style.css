@@ -675,14 +675,23 @@ img {
   }
 }
 
+/* =========================
+   OIC 1F ROOM PLACEMENT
+========================= */
 
-/* OIC 1F room labels */
-.floor-layout[data-floor-layout="1"] .map-room text {
-  font-size: 9px;
-}
+/*
+  Room positions were calculated from the Figma measurements.
+  The green building is drawn first and the rooms are drawn above it.
+*/
 
-
-/* OIC 1F room rectangles */
 .floor-layout[data-floor-layout="1"] .map-room rect {
+  fill: #eeeeee;
+  stroke: #78b672;
   stroke-width: 2px;
 }
+
+.floor-layout[data-floor-layout="1"] .map-room text {
+  font-size: 9px;
+  font-weight: 700;
+}
+
