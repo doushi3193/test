@@ -4,6 +4,44 @@ const venueData = {
   oic: {
     name: "OIC",
     floors: {
+      1: {
+        name: "1F",
+        rooms: [
+          {
+            id: "room-8",
+            name: "Room 8",
+            organisations: [
+              { name: "Welcome Festival Information Centre", category: "central" },
+              { name: "Student Support Desk", category: "central" }
+            ]
+          },
+          {
+            id: "room-7",
+            name: "Room 7",
+            organisations: [
+              { name: "OIC Athletics Club", category: "sports" },
+              { name: "Outdoor Sports Association", category: "sports" }
+            ]
+          },
+          {
+            id: "room-6",
+            name: "Room 6",
+            organisations: [
+              { name: "Performing Arts Society", category: "culture" },
+              { name: "Creative Expression Circle", category: "culture" }
+            ]
+          },
+          {
+            id: "room-5",
+            name: "Room 5",
+            organisations: [
+              { name: "Student Research Forum", category: "research-volunteering" },
+              { name: "Community Volunteer Network", category: "research-volunteering" }
+            ]
+          }
+        ]
+      },
+
       3: {
         name: "3F",
         rooms: [
@@ -57,6 +95,7 @@ let activeCategory = null;
 let searchText = "";
 
 const floorMap = document.querySelector("#floorMap");
+const floorLayouts = document.querySelectorAll(".floor-layout");
 const mapViewport = document.querySelector("#mapViewport");
 const mapTransformLayer = document.querySelector("#mapTransformLayer");
 const searchInput = document.querySelector("#organisationSearch");
@@ -123,9 +162,42 @@ function getMatchingOrganisations(room) {
   });
 }
 
+function showCurrentFloorLayout() {
+  floorLayouts.forEach((layout) => {
+    const layoutFloor =
+      Number(layout.dataset.floorLayout);
+
+    const isCurrent =
+      layoutFloor === currentFloor;
+
+    layout.hidden = !isCurrent;
+  });
+
+  floorMap.setAttribute(
+    "aria-label",
+    `OIC ${currentFloor}F map`
+  );
+}
+
 function renderMap() {
-  const roomElements = floorMap.querySelectorAll(".map-room");
-  const filterIsActive = searchText !== "" || activeCategory !== null;
+  showCurrentFloorLayout();
+
+  const currentLayout =
+    floorMap.querySelector(
+      `[data-floor-layout="${currentFloor}"]`
+    );
+
+  if (!currentLayout) {
+    updateSearchMessage();
+    return;
+  }
+
+  const roomElements =
+    currentLayout.querySelectorAll(".map-room");
+
+  const filterIsActive =
+    searchText !== "" ||
+    activeCategory !== null;
 
   const categoryColours = {
     central: "#A10000",
@@ -135,17 +207,14 @@ function renderMap() {
   };
 
   roomElements.forEach((roomElement) => {
-    const room = getRoomById(roomElement.dataset.roomId);
+    const room =
+      getRoomById(roomElement.dataset.roomId);
 
     roomElement.classList.remove(
       "has-match",
       "is-dimmed"
     );
 
-    /*
-      Clear any colour left over from the previously
-      selected category.
-    */
     roomElement.style.removeProperty(
       "--room-highlight-color"
     );
@@ -165,10 +234,6 @@ function renderMap() {
     if (matches) {
       roomElement.classList.add("has-match");
 
-      /*
-        Category filtering uses the matching category colour.
-        A text-only search keeps the default red.
-      */
       if (
         activeCategory !== null &&
         categoryColours[activeCategory]
@@ -371,20 +436,32 @@ venueTabs.forEach((tab) => {
 
 floorButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    const requestedFloor = Number(button.dataset.floor);
+    const requestedFloor =
+      Number(button.dataset.floor);
 
-    if (requestedFloor !== 3) {
+    if (!venueData.oic.floors[requestedFloor]) {
       searchMessage.textContent =
-        "The OIC 1F map has not been added to this prototype yet.";
+        "This floor has not been added yet.";
       return;
     }
 
-    currentFloor = 3;
+    currentFloor =
+      requestedFloor;
 
     floorButtons.forEach((otherButton) => {
-      const isActive = Number(otherButton.dataset.floor) === 3;
-      otherButton.classList.toggle("is-active", isActive);
-      otherButton.setAttribute("aria-selected", String(isActive));
+      const isActive =
+        Number(otherButton.dataset.floor) ===
+        currentFloor;
+
+      otherButton.classList.toggle(
+        "is-active",
+        isActive
+      );
+
+      otherButton.setAttribute(
+        "aria-selected",
+        String(isActive)
+      );
     });
 
     resetMapView();

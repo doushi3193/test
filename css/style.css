@@ -249,6 +249,10 @@ img {
   overflow: visible;
 }
 
+.floor-layout[hidden] {
+  display: none;
+}
+
 .map-building {
   fill: #78b672;
 }
@@ -348,10 +352,6 @@ img {
   line-height: 1;
 }
 
-.zoom-in-button {
-  font-size: 1.25rem;
-}
-
 .zoom-button:active {
   background: rgb(0 0 0 / 8%);
 }
@@ -431,14 +431,19 @@ img {
 
 .category-icon-image {
   display: block;
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   margin-bottom: 5px;
   object-fit: contain;
+
+  /*
+    Makes coloured PNG icons display as solid black.
+  */
+  filter: brightness(0);
 }
 
 .category-button.is-active .category-icon-image {
-  filter: brightness(1.08);
+  filter: brightness(0);
 }
 
 .category-button.is-active {
@@ -644,8 +649,8 @@ img {
 
 
   .category-icon-image {
-    width: 26px;
-    height: 26px;
+    width: 24px;
+    height: 24px;
   }
 }
 
