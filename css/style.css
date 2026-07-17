@@ -295,6 +295,26 @@ img {
   stroke: var(--red);
 }
 
+.map-room.highlight-central rect {
+  fill: #a10000;
+  stroke: #a10000;
+}
+
+.map-room.highlight-sports rect {
+  fill: #1e6bc1;
+  stroke: #1e6bc1;
+}
+
+.map-room.highlight-culture rect {
+  fill: #eaae14;
+  stroke: #eaae14;
+}
+
+.map-room.highlight-research-volunteering rect {
+  fill: #c4a3cb;
+  stroke: #c4a3cb;
+}
+
 .map-room.has-match text {
   fill: #ffffff;
 }
@@ -417,7 +437,7 @@ img {
 }
 
 .category-culture {
-  --category-color: #ffda2a;
+  --category-color: #eaae14;
 }
 
 .category-research-volunteering {
@@ -425,65 +445,25 @@ img {
 }
 
 /*
-  The PNG is used as a CSS mask. This means its visible shape
-  is recoloured using --category-color.
-
-  Use a transparent-background silhouette PNG.
-  Its original colour can be black, white, or anything else.
+  Category icons use normal PNG <img> elements.
+  Recolour the PNG files themselves if you want the exact category colours.
 */
 
-.category-icon-mask {
+.category-icon-image {
   display: block;
   width: 42px;
   height: 42px;
   margin-bottom: 5px;
-
-  background-color: var(--category-color);
-
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-
-  -webkit-mask-position: center;
-  mask-position: center;
-
-  -webkit-mask-size: contain;
-  mask-size: contain;
+  object-fit: contain;
 }
 
-
-
-/*
-  These URLs are relative to css/style.css.
-  That is why they begin with ../images/.
-*/
-
-.category-icon-central {
-  -webkit-mask-image: url("../images/central.png");
-  mask-image: url("../images/central.png");
-}
-
-.category-icon-sports {
-  -webkit-mask-image: url("../images/sports.png");
-  mask-image: url("../images/sports.png");
-}
-
-.category-icon-culture {
-  -webkit-mask-image: url("../images/culture.png");
-  mask-image: url("../images/culture.png");
-}
-
-.category-icon-research-volunteering {
-  -webkit-mask-image: url("../images/research-volunteering.png");
-  mask-image: url("../images/research-volunteering.png");
+.category-button.is-active .category-icon-image {
+  filter: brightness(1.12);
 }
 
 .category-button.is-active {
   color: #ffffff;
   background: var(--category-color);
-}
-
-.category-button.is-active .category-icon-mask {
-  background-color: #ffffff;
 }
 
 .category-button:focus-visible {
@@ -683,7 +663,7 @@ img {
   }
 
 
-  .category-icon-mask {
+  .category-icon-image {
     width: 34px;
     height: 34px;
   }

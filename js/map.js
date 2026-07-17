@@ -127,10 +127,21 @@ function renderMap() {
   const roomElements = floorMap.querySelectorAll(".map-room");
   const filterIsActive = searchText !== "" || activeCategory !== null;
 
+  const highlightClasses = [
+    "highlight-central",
+    "highlight-sports",
+    "highlight-culture",
+    "highlight-research-volunteering"
+  ];
+
   roomElements.forEach((roomElement) => {
     const room = getRoomById(roomElement.dataset.roomId);
 
-    roomElement.classList.remove("has-match", "is-dimmed");
+    roomElement.classList.remove(
+      "has-match",
+      "is-dimmed",
+      ...highlightClasses
+    );
 
     if (!room) {
       roomElement.classList.add("is-dimmed");
@@ -143,6 +154,12 @@ function renderMap() {
 
     if (getMatchingOrganisations(room).length > 0) {
       roomElement.classList.add("has-match");
+
+      if (activeCategory !== null) {
+        roomElement.classList.add(
+          `highlight-${activeCategory}`
+        );
+      }
     } else {
       roomElement.classList.add("is-dimmed");
     }
