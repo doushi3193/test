@@ -680,3 +680,9 @@ img {
 .floor-layout[data-floor-layout="1"] .map-room text {
   font-size: 9px;
 }
+
+
+/* OIC 1F room rectangles */
+.floor-layout[data-floor-layout="1"] .map-room rect {
+  stroke-width: 2px;
+}
