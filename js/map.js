@@ -829,6 +829,5 @@ window.addEventListener("resize", () => {
   }, 100);
 });
 
-showCurrentFloorLayout();
 calculateInitialMapPosition();
 renderMap();

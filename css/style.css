@@ -251,10 +251,12 @@ img {
 
 .floor-layout {
   display: none;
+  pointer-events: none;
 }
 
 .floor-layout.is-active {
   display: inline;
+  pointer-events: auto;
 }
 
 .map-building {
