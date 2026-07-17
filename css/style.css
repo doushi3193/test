@@ -440,9 +440,6 @@ img {
 
   background-color: var(--category-color);
 
-  -webkit-mask-image: var(--category-icon);
-  mask-image: var(--category-icon);
-
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
 
@@ -451,6 +448,33 @@ img {
 
   -webkit-mask-size: contain;
   mask-size: contain;
+}
+
+
+
+/*
+  These URLs are relative to css/style.css.
+  That is why they begin with ../images/.
+*/
+
+.category-icon-central {
+  -webkit-mask-image: url("../images/central.png");
+  mask-image: url("../images/central.png");
+}
+
+.category-icon-sports {
+  -webkit-mask-image: url("../images/sports.png");
+  mask-image: url("../images/sports.png");
+}
+
+.category-icon-culture {
+  -webkit-mask-image: url("../images/culture.png");
+  mask-image: url("../images/culture.png");
+}
+
+.category-icon-research-volunteering {
+  -webkit-mask-image: url("../images/research-volunteering.png");
+  mask-image: url("../images/research-volunteering.png");
 }
 
 .category-button.is-active {
