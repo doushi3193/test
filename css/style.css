@@ -674,3 +674,9 @@ img {
     max-height: 180px;
   }
 }
+
+
+/* OIC 1F room labels */
+.floor-layout[data-floor-layout="1"] .map-room text {
+  font-size: 9px;
+}
