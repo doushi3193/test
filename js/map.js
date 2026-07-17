@@ -127,20 +127,27 @@ function renderMap() {
   const roomElements = floorMap.querySelectorAll(".map-room");
   const filterIsActive = searchText !== "" || activeCategory !== null;
 
-  const highlightClasses = [
-    "highlight-central",
-    "highlight-sports",
-    "highlight-culture",
-    "highlight-research-volunteering"
-  ];
+  const categoryColours = {
+    central: "#A10000",
+    sports: "#1E6BC1",
+    culture: "#EAAE14",
+    "research-volunteering": "#C4A3CB"
+  };
 
   roomElements.forEach((roomElement) => {
     const room = getRoomById(roomElement.dataset.roomId);
 
     roomElement.classList.remove(
       "has-match",
-      "is-dimmed",
-      ...highlightClasses
+      "is-dimmed"
+    );
+
+    /*
+      Clear any colour left over from the previously
+      selected category.
+    */
+    roomElement.style.removeProperty(
+      "--room-highlight-color"
     );
 
     if (!room) {
@@ -152,12 +159,23 @@ function renderMap() {
       return;
     }
 
-    if (getMatchingOrganisations(room).length > 0) {
+    const matches =
+      getMatchingOrganisations(room).length > 0;
+
+    if (matches) {
       roomElement.classList.add("has-match");
 
-      if (activeCategory !== null) {
-        roomElement.classList.add(
-          `highlight-${activeCategory}`
+      /*
+        Category filtering uses the matching category colour.
+        A text-only search keeps the default red.
+      */
+      if (
+        activeCategory !== null &&
+        categoryColours[activeCategory]
+      ) {
+        roomElement.style.setProperty(
+          "--room-highlight-color",
+          categoryColours[activeCategory]
         );
       }
     } else {

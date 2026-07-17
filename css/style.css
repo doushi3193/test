@@ -291,28 +291,8 @@ img {
 }
 
 .map-room.has-match rect {
-  fill: var(--red);
-  stroke: var(--red);
-}
-
-.map-room.highlight-central rect {
-  fill: #a10000;
-  stroke: #a10000;
-}
-
-.map-room.highlight-sports rect {
-  fill: #1e6bc1;
-  stroke: #1e6bc1;
-}
-
-.map-room.highlight-culture rect {
-  fill: #eaae14;
-  stroke: #eaae14;
-}
-
-.map-room.highlight-research-volunteering rect {
-  fill: #c4a3cb;
-  stroke: #c4a3cb;
+  fill: var(--room-highlight-color, var(--red));
+  stroke: var(--room-highlight-color, var(--red));
 }
 
 .map-room.has-match text {
@@ -445,20 +425,20 @@ img {
 }
 
 /*
-  Category icons use normal PNG <img> elements.
-  Recolour the PNG files themselves if you want the exact category colours.
+  Category icons are ordinary PNG images.
+  Their colours should be edited in the PNG files themselves.
 */
 
 .category-icon-image {
   display: block;
-  width: 42px;
-  height: 42px;
+  width: 30px;
+  height: 30px;
   margin-bottom: 5px;
   object-fit: contain;
 }
 
 .category-button.is-active .category-icon-image {
-  filter: brightness(1.12);
+  filter: brightness(1.08);
 }
 
 .category-button.is-active {
@@ -664,8 +644,8 @@ img {
 
 
   .category-icon-image {
-    width: 34px;
-    height: 34px;
+    width: 26px;
+    height: 26px;
   }
 }
 
