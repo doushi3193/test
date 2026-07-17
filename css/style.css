@@ -300,6 +300,7 @@ img {
   font-size: 10px;
 }
 
+.floor-layout .map-room.has-match rect,
 .map-room.has-match rect {
   fill: var(--room-highlight-color, var(--red));
   stroke: var(--room-highlight-color, var(--red));
@@ -685,8 +686,6 @@ img {
 */
 
 .floor-layout[data-floor-layout="1"] .map-room rect {
-  fill: #eeeeee;
-  stroke: #78b672;
   stroke-width: 2px;
 }
 
