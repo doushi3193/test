@@ -335,24 +335,64 @@
     </section>
 
     <nav class="category-nav" aria-label="Organisation categories">
-      <button class="category-button" type="button" data-category="sports" aria-pressed="false">
-        <img class="category-icon-image" src="images/sports.png" alt="" aria-hidden="true">
+      <button
+        class="category-button category-central"
+        type="button"
+        data-category="central"
+        aria-pressed="false"
+      >
+        <span
+          class="category-icon-mask"
+          style="--category-icon: url('images/central.png');"
+          aria-hidden="true"
+        ></span>
+
+        <span>Central Part</span>
+      </button>
+
+      <button
+        class="category-button category-sports"
+        type="button"
+        data-category="sports"
+        aria-pressed="false"
+      >
+        <span
+          class="category-icon-mask"
+          style="--category-icon: url('images/sports.png');"
+          aria-hidden="true"
+        ></span>
+
         <span>Sports</span>
       </button>
 
-      <button class="category-button" type="button" data-category="culture" aria-pressed="false">
-        <img class="category-icon-image" src="images/culture.png" alt="" aria-hidden="true">
-        <span>Culture</span>
+      <button
+        class="category-button category-culture"
+        type="button"
+        data-category="culture"
+        aria-pressed="false"
+      >
+        <span
+          class="category-icon-mask"
+          style="--category-icon: url('images/culture.png');"
+          aria-hidden="true"
+        ></span>
+
+        <span>Culture &amp;<br>Expression</span>
       </button>
 
-      <button class="category-button" type="button" data-category="academic" aria-pressed="false">
-        <img class="category-icon-image" src="images/academic.png" alt="" aria-hidden="true">
-        <span>Academic</span>
-      </button>
+      <button
+        class="category-button category-research-volunteering"
+        type="button"
+        data-category="research-volunteering"
+        aria-pressed="false"
+      >
+        <span
+          class="category-icon-mask"
+          style="--category-icon: url('images/research-volunteering.png');"
+          aria-hidden="true"
+        ></span>
 
-      <button class="category-button" type="button" data-category="volunteering" aria-pressed="false">
-        <img class="category-icon-image" src="images/volunteering.png" alt="" aria-hidden="true">
-        <span>Volunteering</span>
+        <span>Research &amp;<br>Volunteering</span>
       </button>
     </nav>
   </main>
