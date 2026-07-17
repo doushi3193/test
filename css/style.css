@@ -690,7 +690,7 @@ img {
 }
 
 .floor-layout[data-floor-layout="1"] .map-room text {
-  font-size: 8px;
+  font-size:6px;
   font-weight: 700;
 }
 
