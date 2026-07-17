@@ -249,8 +249,12 @@ img {
   overflow: visible;
 }
 
-.floor-layout[hidden] {
+.floor-layout {
   display: none;
+}
+
+.floor-layout.is-active {
+  display: inline;
 }
 
 .map-building {

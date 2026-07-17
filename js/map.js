@@ -170,7 +170,23 @@ function showCurrentFloorLayout() {
     const isCurrent =
       layoutFloor === currentFloor;
 
-    layout.hidden = !isCurrent;
+    layout.classList.toggle(
+      "is-active",
+      isCurrent
+    );
+
+    /*
+      SVG <g> elements do not handle the HTML hidden attribute
+      consistently in every browser, especially Safari.
+      Setting display explicitly makes the switch reliable.
+    */
+    layout.style.display =
+      isCurrent ? "inline" : "none";
+
+    layout.setAttribute(
+      "aria-hidden",
+      String(!isCurrent)
+    );
   });
 
   floorMap.setAttribute(
@@ -813,5 +829,6 @@ window.addEventListener("resize", () => {
   }, 100);
 });
 
+showCurrentFloorLayout();
 calculateInitialMapPosition();
 renderMap();
