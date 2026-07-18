@@ -1,19 +1,5 @@
 "use strict";
 
-const roomData = {
-  an321: {
-    name: "AN321",
-    organisations: [
-      { id: "an321-org-a", name: "International Exchange Circle", website: "https://example.com/international-exchange", stampToken: "an321-org-a" },
-      { id: "an321-org-b", name: "Volunteer Support Network", website: "https://example.com/volunteer-support", stampToken: "an321-org-b" },
-      { id: "an321-org-c", name: "Language Learning Society", website: "https://example.com/language-learning", stampToken: "an321-org-c" },
-      { id: "an321-org-d", name: "Community Action Club", website: "https://example.com/community-action", stampToken: "an321-org-d" },
-      { id: "an321-org-e", name: "Global Culture Association", website: "https://example.com/global-culture", stampToken: "an321-org-e" },
-      { id: "an321-org-f", name: "Student Outreach Team", website: "https://example.com/student-outreach", stampToken: "an321-org-f" }
-    ]
-  }
-};
-
 function makePrototypeRoom(roomId, roomName) {
   const safeRoomId = roomId || "room";
   const organisations = Array.from({ length: 6 }, (_, index) => {
@@ -33,10 +19,37 @@ function makePrototypeRoom(roomId, roomName) {
 }
 
 const pageParameters = new URLSearchParams(window.location.search);
-const requestedRoomId = pageParameters.get("room") || "an321";
-const requestedRoomName = pageParameters.get("name") || requestedRoomId.toUpperCase();
-const currentRoom = roomData[requestedRoomId] || makePrototypeRoom(requestedRoomId, requestedRoomName);
 
+const requestedVenueId =
+  pageParameters.get("venue") || "oic";
+
+const requestedFloorNumber =
+  Number(pageParameters.get("floor")) || 3;
+
+const requestedRoomId =
+  pageParameters.get("room") || "an321";
+
+const requestedRoomName =
+  pageParameters.get("name") ||
+  requestedRoomId.toUpperCase();
+
+function findRequestedRoom() {
+  const requestedFloor =
+    venueData[requestedVenueId]
+      ?.floors?.[requestedFloorNumber];
+
+  return requestedFloor
+    ?.rooms
+    ?.find((room) => room.id === requestedRoomId);
+}
+
+const currentRoom =
+  findRequestedRoom() ||
+  makePrototypeRoom(
+    requestedRoomId,
+    requestedRoomName
+  );
+  
 const roomTitle = document.querySelector("#roomTitle");
 const organisationGrid = document.querySelector("#organisationGrid");
 const organisationPopup = document.querySelector("#organisationPopup");
