@@ -49,7 +49,7 @@ const currentRoom =
     requestedRoomId,
     requestedRoomName
   );
-  
+
 const roomTitle = document.querySelector("#roomTitle");
 const organisationGrid = document.querySelector("#organisationGrid");
 const organisationPopup = document.querySelector("#organisationPopup");
