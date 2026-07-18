@@ -313,27 +313,15 @@ function closeRoomPopup() {
 let suppressNextRoomClick = false;
 
 floorMap.querySelectorAll(".map-room").forEach((roomElement) => {
-  function openThisRoom() {
-    const room = getRoomById(roomElement.dataset.roomId);
-
-    if (room) {
-      openRoomPopup(room);
-    }
-  }
-
-  roomElement.addEventListener("click", () => {
-    if (suppressNextRoomClick) {
-      suppressNextRoomClick = false;
-      return;
-    }
-
-    openThisRoom();
-  });
-
   roomElement.addEventListener("keydown", (event) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
-      openThisRoom();
+
+      const room = getRoomById(roomElement.dataset.roomId);
+
+      if (room) {
+        openRoomPopup(room);
+      }
     }
   });
 });
@@ -662,13 +650,33 @@ function endPointer(event) {
     }
   }
 
-  if (activePointers.size === 1) {
-    const remainingPointer = [...activePointers.values()][0];
+  if (activePointers.size === 0) {
+  previousSinglePointer = null;
+  previousPinchDistance = null;
+  previousPinchCenter = null;
 
-    previousSinglePointer = remainingPointer;
-    previousPinchDistance = null;
-    previousPinchCenter = null;
+  mapViewport.classList.remove("is-dragging");
+
+  if (!mapWasDragged) {
+    const elementUnderPointer = document.elementFromPoint(
+      event.clientX,
+      event.clientY
+    );
+
+    const roomElement =
+      elementUnderPointer?.closest?.(".map-room");
+
+    if (roomElement) {
+      const room = getRoomById(
+        roomElement.dataset.roomId
+      );
+
+      if (room) {
+        openRoomPopup(room);
+      }
+    }
   }
+}
 }
 
 mapViewport.addEventListener("pointerup", endPointer);
