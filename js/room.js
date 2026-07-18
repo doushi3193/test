@@ -104,7 +104,7 @@ function createOrganisationCard(organisation) {
 
   const stampImage = document.createElement("img");
   stampImage.className = "stamp-image";
-  stampImage.src = STAMP_IMAGE_PATH;
+  stampImage.src = `images/stamps/${organisation.id}.png`;
   stampImage.alt = `${organisation.name} stamp`;
   stampImage.addEventListener("error", () => { stampImage.hidden = true; });
 
