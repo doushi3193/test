@@ -434,9 +434,12 @@ function updateSearchMessage() {
     return;
   }
 
+  /* ===========================
+          編集済みセクション②↓
+        =========================== */
   if (!filterIsActive) {
     searchMessage.textContent =
-      "Search by organisation name or choose a category.";
+      "団体名で検索　またはカテゴリーを選択してください";
     return;
   }
 
@@ -446,12 +449,15 @@ function updateSearchMessage() {
 
   if (matchingRoomCount === 0) {
     searchMessage.textContent =
-      "No matching organisations were found on this floor.";
+      "条件に当てはまる団体のこの階への出展はありません";
   } else if (matchingRoomCount === 1) {
-    searchMessage.textContent = "1 matching room found.";
+    searchMessage.textContent = "検索結果　1件";
   } else {
     searchMessage.textContent =
-      `${matchingRoomCount} matching rooms found.`;
+      `検索結果　${matchingRoomCount}件`;
+        /* ===========================
+          編集済みセクション②↑
+        =========================== */
   }
 }
 
@@ -509,10 +515,13 @@ function openRoomPopup(room) {
     ? getMatchingOrganisations(room)
     : room.organisations;
 
+    /* ===========================
+          編集済みセクション③↓
+        =========================== */
   popupRoomName.textContent = room.name;
   popupCondition.textContent = filterIsActive
-    ? "Organisations matching your current search:"
-    : "Organisations in this room:";
+    ? "検索にヒットした団体:"
+    : "この部屋に出展している団体:";
 
   popupOrganisationList.replaceChildren();
 
@@ -521,8 +530,11 @@ function openRoomPopup(room) {
     noResult.className = "no-result";
     noResult.textContent =
       filterIsActive
-        ? "No organisations in this room match the current criteria."
-        : "Organisation information has not been added yet.";
+        ? "この部屋には条件に当てはまる団体の出展はありません"
+        : "団体情報未登録";
+        /* ===========================
+          編集済みセクション③↑
+        =========================== */
     popupOrganisationList.append(noResult);
   } else {
     organisationsToShow.forEach((organisation) => {
@@ -547,7 +559,13 @@ function openRoomPopup(room) {
   roomUrl.searchParams.set("name", room.name);
 
   roomPageLink.href = roomUrl.toString();
-  roomPageLink.textContent = `Go to ${room.name}`;
+  /* ===========================
+          編集済みセクション④↓
+        =========================== */
+  roomPageLink.textContent = `${room.name} へ`;
+  /* ===========================
+          編集済みセクション④↑
+        =========================== */
 
   roomPopup.hidden = false;
   document.body.style.overflow = "hidden";
@@ -588,7 +606,7 @@ floorMap.querySelectorAll(".map-room").forEach((roomElement) => {
 });
 
 /* ===========================
-   編集済みセクション②↓
+   編集済みセクション⑤↓
 =========================== */
 
 function updateVenueTabs() {
@@ -601,7 +619,7 @@ function updateVenueTabs() {
 }
 
 /* ===========================
-   編集済みセクション②↑
+   編集済みセクション⑤↑
 =========================== */
 
 function renderFloorButtons() {
@@ -636,7 +654,7 @@ function renderFloorButtons() {
 }
 
 /* ===========================
-   編集済みセクション③↓
+   編集済みセクション⑥↓
 =========================== */
 
 venueTabs.forEach((tab) => {
@@ -658,7 +676,7 @@ venueTabs.forEach((tab) => {
 });
 
 /* ===========================
-   編集済みセクション③↑
+   編集済みセクション⑥↑
 =========================== */
 
 searchInput.addEventListener("input", () => {
@@ -1006,12 +1024,12 @@ window.addEventListener("resize", () => {
 });
 
 /* ===========================
-   編集済みセクション④↓
+   編集済みセクション⑦↓
 =========================== */
 updateVenueTabs();
 renderFloorButtons();
 calculateInitialMapPosition();
 renderMap();
 /* ===========================
-   編集済みセクション④↑
+   編集済みセクション⑦↑
 =========================== */

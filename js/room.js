@@ -69,14 +69,19 @@ const STAMP_IMAGE_PATH = "images/stamp.png";
 function getCollectedStampIds() {
   const savedValue = localStorage.getItem(STAMP_STORAGE_KEY);
   if (!savedValue) return [];
-
+/* ===========================
+          編集済みセクション①↓
+        =========================== */
   try {
     const parsedValue = JSON.parse(savedValue);
     return Array.isArray(parsedValue) ? parsedValue : [];
   } catch (error) {
-    console.error("The saved stamp data could not be read.", error);
+    console.error("スタンプ獲得状況のデータ読み込みに失敗しました", error);
     return [];
   }
+  /* ===========================
+          編集済みセクション①↑
+        =========================== */
 }
 
 function hasCollectedStamp(organisationId) {
@@ -100,7 +105,13 @@ function createOrganisationCard(organisation) {
   const stampButton = document.createElement("button");
   stampButton.className = "stamp-field";
   stampButton.type = "button";
-  stampButton.setAttribute("aria-label", `Open ${organisation.name}`);
+  /* ===========================
+          編集済みセクション②↓
+        =========================== */
+  stampButton.setAttribute("aria-label", `${organisation.name} のHPを開く`);
+  /* ===========================
+          編集済みセクション②↑
+        =========================== */
 
   const stampImage = document.createElement("img");
   stampImage.className = "stamp-image";
@@ -146,13 +157,19 @@ function openOrganisationPopup(organisation) {
   popupOrganisationName.textContent = organisation.name;
   popupRoomName.textContent = currentRoom.name;
   organisationWebsiteLink.href = organisation.website;
+  /* ===========================
+          編集済みセクション③↓
+        =========================== */
   nfcStatus.textContent = hasCollectedStamp(organisation.id)
-    ? "You have already collected this stamp."
-    : "Press the button, then hold your phone near the organisation's NFC tag.";
+    ? "このスタンプはすでに獲得済みです"
+    : "ボタンを押した後に団体のNFCタグに端末をかざしてください";
   nfcStatus.className = "nfc-status";
   readNfcButton.disabled = false;
   readNfcButton.classList.remove("is-reading");
-  readNfcButton.textContent = "Read NFC Tag";
+  readNfcButton.textContent = "NFCタグを読み取る";
+  /* ===========================
+          編集済みセクション③↑
+        =========================== */
   organisationPopup.hidden = false;
   document.body.style.overflow = "hidden";
   closePopupButton.focus();
@@ -228,7 +245,13 @@ function stopNfcReading() {
 
   readNfcButton.classList.remove("is-reading");
   readNfcButton.disabled = false;
-  readNfcButton.textContent = "Read NFC Tag";
+  /* ===========================
+          編集済みセクション④↓
+        =========================== */
+  readNfcButton.textContent = "NFCタグを読み取る";
+  /* ===========================
+          編集済みセクション④↑
+        =========================== */
 }
 
 async function startNfcReading() {
@@ -236,8 +259,14 @@ async function startNfcReading() {
 
   if (!("NDEFReader" in window)) {
     nfcStatus.className = "nfc-status is-error";
+    /* ===========================
+          編集済みセクション⑤↓
+        =========================== */
     nfcStatus.textContent =
-      "This browser cannot read NFC inside the webpage. On iPhone, scan the NFC tag normally. The tag should contain a room-page URL with the stamp token.";
+      "ウェブ上のNFC読み取りに対応していないブラウザです。iPhoneの場合、そのままNFCを読み取ってください。NFCタグに部屋ページのURLとスタンプのトークンが埋め込まれています。";
+    /* ===========================
+          編集済みセクション⑤↑
+        =========================== */
     return;
   }
 
@@ -249,15 +278,33 @@ async function startNfcReading() {
 
     readNfcButton.disabled = true;
     readNfcButton.classList.add("is-reading");
-    readNfcButton.textContent = "Waiting for NFC Tag…";
+    /* ===========================
+          編集済みセクション⑥↓
+        =========================== */
+    readNfcButton.textContent = "NFCタグ読み取り待機中……";
+    /* ===========================
+          編集済みセクション⑥↑
+        =========================== */
     nfcStatus.className = "nfc-status";
+    /* ===========================
+          編集済みセクション⑦↓
+        =========================== */
     nfcStatus.textContent =
-      "NFC reading mode is active. Hold the phone near this organisation's tag.";
+      "NFC読み取りモードがオンになっています。団体のタグに端末をかざしてください。";
+      /* ===========================
+          編集済みセクション⑦↑
+        =========================== */
 
     ndef.addEventListener("readingerror", () => {
       nfcStatus.className = "nfc-status is-error";
+      /* ===========================
+          編集済みセクション⑧↓
+        =========================== */
       nfcStatus.textContent =
-        "The NFC tag could not be read. Move the phone away and try again.";
+        "NFCタグの読み取りに失敗しました。一度端末を離してからもう一度お試しください。";
+        /* ===========================
+          編集済みセクション⑧↑
+        =========================== */
     });
 
     ndef.addEventListener("reading", (event) => {
@@ -265,7 +312,13 @@ async function startNfcReading() {
 
       if (scannedValue !== selectedOrganisation.stampToken) {
         nfcStatus.className = "nfc-status is-error";
-        nfcStatus.textContent = "This NFC tag belongs to a different organisation.";
+        /* ===========================
+          編集済みセクション⑨↓
+        =========================== */
+        nfcStatus.textContent = "異なる団体のNFCタグが読み込まれました。";
+        /* ===========================
+          編集済みセクション⑨↑
+        =========================== */
         return;
       }
 
@@ -277,12 +330,18 @@ async function startNfcReading() {
     nfcStatus.className = "nfc-status is-error";
 
     if (error.name === "NotAllowedError") {
-      nfcStatus.textContent = "NFC permission was not granted.";
+      /* ===========================
+          編集済みセクション10↓
+        =========================== */
+      nfcStatus.textContent = "NFC読み取りの許可がありません";
     } else if (error.name === "AbortError") {
-      nfcStatus.textContent = "NFC reading was cancelled.";
+      nfcStatus.textContent = "NFC読み取りがキャンセルされました";
     } else {
       nfcStatus.textContent =
-        "NFC reading could not start. Make sure the page is open through HTTPS.";
+        "NFC読み取りを開始できませんでした。サイトがHTTPSで開かれていることを確認してください。";
+        /* ===========================
+          編集済みセクション10↑
+        =========================== */
     }
 
     console.error("Web NFC error:", error);
@@ -302,7 +361,13 @@ function collectStampFromUrl() {
   window.history.replaceState({}, "", cleanUrl);
 
   if (!matchingOrganisation) {
-    window.alert("This NFC tag does not belong to an organisation in this room.");
+    /* ===========================
+          編集済みセクション11↓
+        =========================== */
+    window.alert("この部屋に出展していない団体のNFCタグです。");
+    /* ===========================
+          編集済みセクション11↑
+        =========================== */
     return;
   }
 
