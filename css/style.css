@@ -431,11 +431,6 @@ img {
   --category-color: #c4a3cb;
 }
 
-/*
-  Category icons are ordinary PNG images.
-  Their colours should be edited in the PNG files themselves.
-*/
-
 .category-icon-image {
   display: block;
   width: 28px;
@@ -443,9 +438,6 @@ img {
   margin-bottom: 5px;
   object-fit: contain;
 
-  /*
-    Makes coloured PNG icons display as solid black.
-  */
   filter: brightness(0);
 }
 
@@ -680,11 +672,6 @@ img {
    OIC 1F ROOM PLACEMENT
 ========================= */
 
-/*
-  Room positions were calculated from the Figma measurements.
-  The green building is drawn first and the rooms are drawn above it.
-*/
-
 .floor-layout[data-floor-layout="1"] .map-room rect {
   stroke-width: 2px;
 }
@@ -694,7 +681,9 @@ img {
   font-weight: 700;
 }
 
-
+/* ===========================
+   編集済みセクション①↓
+=========================== */
 
 /* KIC five-floor selector */
 .floor-switch.has-five-floors {
@@ -721,3 +710,6 @@ img {
 .floor-layout[data-venue-layout="oic"][data-floor-layout="1"] .oic1-room-name {
     font-size: 8px;
 }
+/* ===========================
+   編集済みセクション①↑
+=========================== */

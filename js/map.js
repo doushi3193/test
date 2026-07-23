@@ -4,8 +4,14 @@
    Project Settings
 =========================== */
 
+/* ===========================
+   編集済みセクション①↓
+=========================== */
+
+// ↓最初に表示されるキャンパスや階を変えたいときはここを変更↓ //
 const START_VENUE = "oic";   
 const START_FLOOR = 1;      
+// ↑最初に表示されるキャンパスや階を変えたいときはここを変更↑ //
 
 const DEFAULT_FLOORS = {
     oic: 1,
@@ -242,6 +248,11 @@ const venueData = {
 
 let currentVenue = START_VENUE;
 let currentFloor = START_FLOOR;
+
+/* ===========================
+   編集済みセクション①↑
+=========================== */
+
 let activeCategory = null;
 let searchText = "";
 
@@ -576,6 +587,10 @@ floorMap.querySelectorAll(".map-room").forEach((roomElement) => {
   });
 });
 
+/* ===========================
+   編集済みセクション②↓
+=========================== */
+
 function updateVenueTabs() {
   venueTabs.forEach((tab) => {
     const isActive = tab.dataset.venue === currentVenue;
@@ -584,6 +599,10 @@ function updateVenueTabs() {
     tab.setAttribute("aria-selected", String(isActive));
   });
 }
+
+/* ===========================
+   編集済みセクション②↑
+=========================== */
 
 function renderFloorButtons() {
   const floorSwitch = document.querySelector(".floor-switch");
@@ -616,6 +635,10 @@ function renderFloorButtons() {
   floorButtons = document.querySelectorAll(".floor-button");
 }
 
+/* ===========================
+   編集済みセクション③↓
+=========================== */
+
 venueTabs.forEach((tab) => {
   tab.addEventListener("click", () => {
     const requestedVenue = tab.dataset.venue;
@@ -633,6 +656,10 @@ venueTabs.forEach((tab) => {
     renderMap();
   });
 });
+
+/* ===========================
+   編集済みセクション③↑
+=========================== */
 
 searchInput.addEventListener("input", () => {
   searchText = searchInput.value.trim();
@@ -978,7 +1005,13 @@ window.addEventListener("resize", () => {
   }, 100);
 });
 
+/* ===========================
+   編集済みセクション④↓
+=========================== */
 updateVenueTabs();
 renderFloorButtons();
 calculateInitialMapPosition();
 renderMap();
+/* ===========================
+   編集済みセクション④↑
+=========================== */
