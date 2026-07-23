@@ -11,7 +11,6 @@
   <title>Welcome Festival Map</title>
 
   <link rel="stylesheet" href="css/style.css">
-  <script src="js/data.js" defer></script>
   <script src="js/map.js" defer></script>
 </head>
 
@@ -78,10 +77,10 @@
         </button>
 
         <button
-          class="floor-button is-active"
+          class="floor-button"
           type="button"
           data-floor="3"
-          aria-selected="true"
+          aria-selected="false"
         >
           3F
         </button>
@@ -98,6 +97,7 @@
           >
             <g
               class="floor-layout"
+              data-venue-layout="oic"
               data-floor-layout="1"
               aria-label="OIC first floor map"
               aria-hidden="true"
@@ -109,57 +109,90 @@
               <rect class="map-building" x="0" y="190" width="710" height="44" />
               <rect class="map-building" x="48" y="438" width="662" height="54" />
 
-              <g class="map-room"
-data-room-id="room-8"
-tabindex="0"
-role="button"
-aria-label="Room 8">
-<rect x="146" y="460" width="36" height="26"/>
-<text x="164" y="473" class="multiline-room-name">
-<tspan x="164" dy="-0.1em">Room</tspan>
-<tspan x="164" dy="1.0em">8</tspan>
-</text>
-</g>
+              <g
+                class="map-room"
+                data-room-id="room-8"
+                tabindex="0"
+                role="button"
+                aria-label="Room 8"
+              >
+                <rect
+                  x="146"
+                  y="460"
+                  width="36"
+                  height="26"
+                />
 
-              <g class="map-room"
-data-room-id="room-7"
-tabindex="0"
-role="button"
-aria-label="Room 7">
-<rect x="340" y="460" width="36" height="26"/>
-<text x="358" y="473" class="multiline-room-name">
-<tspan x="358" dy="-0.1em">Room</tspan>
-<tspan x="358" dy="1.0em">7</tspan>
-</text>
-</g>
+                <text x="164" y="473" class="multiline-room-name oic1-room-name">
+                  <tspan x="164" dy="-0.1em">Room</tspan>
+                  <tspan x="164" dy="1.0em">8</tspan>
+                </text>
+              </g>
 
-              <g class="map-room"
-data-room-id="room-6"
-tabindex="0"
-role="button"
-aria-label="Room 6">
-<rect x="425" y="460" width="36" height="26"/>
-<text x="443" y="473" class="multiline-room-name">
-<tspan x="443" dy="-0.1em">Room</tspan>
-<tspan x="443" dy="1.0em">6</tspan>
-</text>
-</g>
+              <g
+                class="map-room"
+                data-room-id="room-7"
+                tabindex="0"
+                role="button"
+                aria-label="Room 7"
+              >
+                <rect
+                  x="340"
+                  y="460"
+                  width="36"
+                  height="26"
+                />
 
-              <g class="map-room"
-data-room-id="room-5"
-tabindex="0"
-role="button"
-aria-label="Room 5">
-<rect x="577" y="460" width="36" height="26"/>
-<text x="595" y="473" class="multiline-room-name">
-<tspan x="595" dy="-0.1em">Room</tspan>
-<tspan x="595" dy="1.0em">5</tspan>
-</text>
-</g>
+                <text x="358" y="473" class="multiline-room-name oic1-room-name">
+                  <tspan x="358" dy="-0.1em">Room</tspan>
+                  <tspan x="358" dy="1.0em">7</tspan>
+                </text>
+              </g>
+
+              <g
+                class="map-room"
+                data-room-id="room-6"
+                tabindex="0"
+                role="button"
+                aria-label="Room 6"
+              >
+                <rect
+                  x="425"
+                  y="460"
+                  width="36"
+                  height="26"
+                />
+
+                <text x="443" y="473" class="multiline-room-name oic1-room-name">
+                  <tspan x="443" dy="-0.1em">Room</tspan>
+                  <tspan x="443" dy="1.0em">6</tspan>
+                </text>
+              </g>
+
+              <g
+                class="map-room"
+                data-room-id="room-5"
+                tabindex="0"
+                role="button"
+                aria-label="Room 5"
+              >
+                <rect
+                  x="577"
+                  y="460"
+                  width="36"
+                  height="26"
+                />
+
+                <text x="595" y="473" class="multiline-room-name oic1-room-name">
+                  <tspan x="595" dy="-0.1em">Room</tspan>
+                  <tspan x="595" dy="1.0em">5</tspan>
+                </text>
+              </g>
             </g>
 
             <g
               class="floor-layout is-active"
+              data-venue-layout="oic"
               data-floor-layout="3"
               aria-label="OIC third floor map"
               aria-hidden="false"
@@ -379,6 +412,517 @@ aria-label="Room 5">
               <rect x="572" y="505" width="123" height="85" />
               <text x="633.5" y="547.5" dy="0.35em">AN310</text>
             </g>
+            </g>
+
+            <!-- KIC 1F -->
+            <g
+              class="floor-layout"
+              data-venue-layout="kic"
+              data-floor-layout="1"
+              aria-label="KIC first floor map"
+              aria-hidden="true"
+              style="display: none;"
+            >
+              <!-- Main green circulation/building shape -->
+              <path class="map-building" d="M30 115 H370 V173 H758 V365 H370 V620 H95 V365 H30 Z" />
+              <rect class="map-building" x="365" y="173" width="393" height="192" />
+              <rect class="map-building" x="390" y="385" width="130" height="215" />
+
+              <g class="map-room" data-room-id="kic-student-hall" tabindex="0" role="button" aria-label="Student Hall">
+                <rect x="38" y="125" width="195" height="230" />
+                <text x="135.5" y="244">Student Hall</text>
+              </g>
+              <g class="map-room" data-room-id="kic-101" tabindex="0" role="button" aria-label="101">
+                <rect x="104" y="366" width="126" height="46" />
+                <text x="167" y="394">101</text>
+              </g>
+              <g class="map-room" data-room-id="kic-102" tabindex="0" role="button" aria-label="102">
+                <rect x="104" y="416" width="126" height="46" />
+                <text x="167" y="444">102</text>
+              </g>
+              <g class="map-room" data-room-id="kic-103" tabindex="0" role="button" aria-label="103">
+                <rect x="104" y="466" width="126" height="46" />
+                <text x="167" y="494">103</text>
+              </g>
+              <g class="map-room" data-room-id="kic-104" tabindex="0" role="button" aria-label="104">
+                <rect x="104" y="516" width="126" height="46" />
+                <text x="167" y="544">104</text>
+              </g>
+              <g class="map-room" data-room-id="kic-105" tabindex="0" role="button" aria-label="105">
+                <rect x="104" y="566" width="126" height="46" />
+                <text x="167" y="594">105</text>
+              </g>
+              <g class="map-room" data-room-id="kic-open-cafe" tabindex="0" role="button" aria-label="Open Cafe">
+                <rect x="370" y="180" width="380" height="70" />
+                <text x="555" y="219">Open Cafe</text>
+              </g>
+              <g class="map-room" data-room-id="kic-110" tabindex="0" role="button" aria-label="110">
+                <rect x="407" y="430" width="95" height="145" />
+                <text x="454.5" y="504">110</text>
+              </g>
+            </g>
+
+            <!-- KIC 2F -->
+            <g
+              class="floor-layout"
+              data-venue-layout="kic"
+              data-floor-layout="2"
+              aria-label="KIC second floor map"
+              aria-hidden="true"
+              style="display: none;"
+            >
+              <!-- Main green circulation/building shape -->
+              <path class="map-building" d="M30 115 H370 V173 H758 V365 H370 V620 H95 V365 H30 Z" />
+              <rect class="map-building" x="365" y="173" width="393" height="192" />
+              <rect class="map-building" x="390" y="385" width="130" height="215" />
+
+              <g class="map-room" data-room-id="kic-207" tabindex="0" role="button" aria-label="207">
+                <rect x="38" y="125" width="195" height="145" />
+                <text x="135.5" y="199">207</text>
+              </g>
+              <g class="map-room" data-room-id="kic-206" tabindex="0" role="button" aria-label="206">
+                <rect x="240" y="125" width="62" height="112" />
+                <text x="270" y="182">206</text>
+              </g>
+              <g class="map-room" data-room-id="kic-205" tabindex="0" role="button" aria-label="205">
+                <rect x="308" y="125" width="57" height="112" />
+                <text x="336.5" y="182">205</text>
+              </g>
+              <g class="map-room" data-room-id="kic-open-factory" tabindex="0" role="button" aria-label="Open Factory">
+                <rect x="375" y="185" width="265" height="168" />
+                <text x="507.5" y="271">Open Factory</text>
+              </g>
+              <g class="map-room" data-room-id="kic-202" tabindex="0" role="button" aria-label="202">
+                <rect x="645" y="185" width="50" height="82" />
+                <text x="670" y="228">202</text>
+              </g>
+              <g class="map-room" data-room-id="kic-201" tabindex="0" role="button" aria-label="201">
+                <rect x="700" y="185" width="50" height="82" />
+                <text x="725" y="228">201</text>
+              </g>
+              <g class="map-room" data-room-id="kic-204" tabindex="0" role="button" aria-label="204">
+                <rect x="645" y="270" width="50" height="82" />
+                <text x="670" y="312">204</text>
+              </g>
+              <g class="map-room" data-room-id="kic-203" tabindex="0" role="button" aria-label="203">
+                <rect x="700" y="270" width="50" height="82" />
+                <text x="725" y="312">203</text>
+              </g>
+              <g class="map-room" data-room-id="kic-213" tabindex="0" role="button" aria-label="213">
+                <rect x="264" y="366" width="96" height="50" />
+                <text x="313" y="395">213</text>
+              </g>
+              <g class="map-room" data-room-id="kic-212" tabindex="0" role="button" aria-label="212">
+                <rect x="264" y="418" width="96" height="50" />
+                <text x="313" y="447">212</text>
+              </g>
+              <g class="map-room" data-room-id="kic-211" tabindex="0" role="button" aria-label="211">
+                <rect x="264" y="470" width="96" height="50" />
+                <text x="313" y="499">211</text>
+              </g>
+              <g class="map-room" data-room-id="kic-210" tabindex="0" role="button" aria-label="210">
+                <rect x="264" y="522" width="96" height="50" />
+                <text x="313" y="551">210</text>
+              </g>
+              <g class="map-room" data-room-id="kic-h207" tabindex="0" role="button" aria-label="H207">
+                <rect x="104" y="366" width="126" height="85" />
+                <text x="167" y="416">H207</text>
+              </g>
+              <g class="map-room" data-room-id="kic-208" tabindex="0" role="button" aria-label="208">
+                <rect x="104" y="455" width="126" height="70" />
+                <text x="167" y="495">208</text>
+              </g>
+              <g class="map-room" data-room-id="kic-209" tabindex="0" role="button" aria-label="209">
+                <rect x="104" y="530" width="126" height="85" />
+                <text x="167" y="580">209</text>
+              </g>
+              <g class="map-room" data-room-id="kic-r214" tabindex="0" role="button" aria-label="R214">
+                <rect x="407" y="430" width="95" height="145" />
+                <text x="454.5" y="504">R214</text>
+              </g>
+            </g>
+
+            <!-- KIC 3F -->
+            <g
+            class="floor-layout"
+              data-venue-layout="kic"
+              data-floor-layout="3"
+              aria-label="KIC third floor map"
+              aria-hidden="true"
+              style="display: none;"
+            >
+              
+              <!-- Main green circulation/building shape -->
+              <path class="map-building" d="M30 115 H370 V173 H758 V365 H370 V620 H95 V365 H30 Z" />
+              <rect class="map-building" x="365" y="173" width="393" height="192" />
+              <rect class="map-building" x="390" y="385" width="130" height="215" />
+
+              <g class="map-room" data-room-id="kic-311" tabindex="0" role="button" aria-label="311">
+                <rect x="40" y="125" width="63" height="125" />
+                <text x="71" y="189">311</text>
+              </g>
+              <g class="map-room" data-room-id="kic-310" tabindex="0" role="button" aria-label="310">
+                <rect x="104" y="125" width="63" height="125" />
+                <text x="135" y="189">310</text>
+              </g>
+              <g class="map-room" data-room-id="kic-309" tabindex="0" role="button" aria-label="309">
+                <rect x="168" y="125" width="63" height="125" />
+                <text x="199" y="189">309</text>
+              </g>
+              <g class="map-room" data-room-id="kic-308" tabindex="0" role="button" aria-label="308">
+                <rect x="232" y="125" width="63" height="125" />
+                <text x="263" y="189">308</text>
+              </g>
+              <g class="map-room" data-room-id="kic-307" tabindex="0" role="button" aria-label="307">
+                <rect x="296" y="125" width="63" height="125" />
+                <text x="327" y="189">307</text>
+              </g>
+              <g class="map-room" data-room-id="kic-312" tabindex="0" role="button" aria-label="312">
+                <rect x="40" y="285" width="127" height="70" />
+                <text x="101" y="323">312</text>
+              </g>
+              <g class="map-room" data-room-id="kic-313" tabindex="0" role="button" aria-label="313">
+                <rect x="167" y="285" width="32.5" height="70" />
+                <text x="183" y="323">313</text>
+              </g>
+              <g class="map-room" data-room-id="kic-314" tabindex="0" role="button" aria-label="314">
+                <rect x="199.5" y="285" width="32.5" height="70" />
+                <text x="215.5" y="323">314</text>
+              </g>
+              <g class="map-room" data-room-id="kic-h302" tabindex="0" role="button" aria-label="H302">
+                <rect x="104" y="366" width="126" height="50" />
+                <text x="167" y="395">H302</text>
+              </g>
+              <g class="map-room" data-room-id="kic-315" tabindex="0" role="button" aria-label="315">
+                <rect x="104" y="418" width="126" height="35" />
+                <text x="167" y="440">315</text>
+              </g>
+              <g class="map-room" data-room-id="kic-h303" tabindex="0" role="button" aria-label="H303">
+                <rect x="104" y="470" width="126" height="50" />
+                <text x="167" y="499">H303</text>
+              </g>
+              <g class="map-room" data-room-id="kic-h304" tabindex="0" role="button" aria-label="H304">
+                <rect x="104" y="522" width="126" height="90" />
+                <text x="167" y="571">H304</text>
+              </g>
+              <g class="map-room" data-room-id="kic-317" tabindex="0" role="button" aria-label="317">
+                <rect x="264" y="366" width="96" height="50" />
+                <text x="313" y="395">317</text>
+              </g>
+               <g class="map-room" data-room-id="kic-316" tabindex="0" role="button" aria-label="316">
+                <rect x="264" y="418" width="96" height="50" />
+                <text x="313" y="445">316</text>
+              </g>
+              <g class="map-room" data-room-id="kic-h305" tabindex="0" role="button" aria-label="H305">
+                <rect x="264" y="470" width="96" height="97" />
+                <text x="313" y="520">H305</text>
+              </g>
+              <g class="map-room" data-room-id="kic-306" tabindex="0" role="button" aria-label="306">
+                <rect x="370" y="180" width="120" height="70" />
+                <text x="430" y="219">306</text>
+              </g>
+              <g class="map-room" data-room-id="kic-305" tabindex="0" role="button" aria-label="305">
+                <rect x="492" y="180" width="50" height="70" />
+                <text x="518" y="219">305</text>
+              </g>
+              <g class="map-room" data-room-id="kic-304" tabindex="0" role="button" aria-label="304">
+                <rect x="545" y="180" width="50" height="70" />
+                <text x="571" y="219">304</text>
+              </g>
+              <g class="map-room" data-room-id="kic-303" tabindex="0" role="button" aria-label="303">
+                <rect x="598" y="180" width="50" height="70" />
+                <text x="624" y="219">303</text>
+              </g>
+              <g class="map-room" data-room-id="kic-302" tabindex="0" role="button" aria-label="302">
+                <rect x="651" y="180" width="50" height="70" />
+                <text x="676" y="219">302</text>
+              </g>
+              <g class="map-room" data-room-id="kic-301" tabindex="0" role="button" aria-label="301">
+                <rect x="704" y="180" width="50" height="70" />
+                <text x="730" y="219">301</text>
+              </g>
+              <g class="map-room" data-room-id="kic-318" tabindex="0" role="button" aria-label="318">
+                <rect x="439" y="285" width="50" height="70" />
+                <text x="465" y="323">318</text>
+              </g>
+              <g class="map-room" data-room-id="kic-319" tabindex="0" role="button" aria-label="319">
+                <rect x="492" y="285" width="50" height="70" />
+                <text x="518" y="323">319</text>
+              </g>
+              <g class="map-room" data-room-id="kic-320" tabindex="0" role="button" aria-label="320">
+                <rect x="545" y="285" width="50" height="70" />
+                <text x="571" y="323">320</text>
+              </g>
+              <g class="map-room" data-room-id="kic-321" tabindex="0" role="button" aria-label="321">
+                <rect x="598" y="285" width="50" height="70" />
+                <text x="624" y="323">321</text>
+              </g>
+              <g class="map-room" data-room-id="kic-322" tabindex="0" role="button" aria-label="322">
+                <rect x="651" y="285" width="50" height="70" />
+                <text x="676" y="323">322</text>
+              </g>
+              <g class="map-room" data-room-id="kic-323" tabindex="0" role="button" aria-label="323">
+                <rect x="704" y="285" width="50" height="70" />
+                <text x="730" y="323">323</text>
+              </g>
+              <g class="map-room" data-room-id="kic-r324" tabindex="0" role="button" aria-label="R324">
+                <rect x="407" y="424" width="74" height="74" />
+                <text x="444" y="465">R324</text>
+              </g>
+              <g class="map-room" data-room-id="kic-r325" tabindex="0" role="button" aria-label="R325">
+                <rect x="407" y="504" width="95" height="74" />
+                <text x="454.5" y="545">R325</text>
+              </g>
+            </g>
+
+            <!-- KIC 4F -->
+            <g
+            class="floor-layout"
+              data-venue-layout="kic"
+              data-floor-layout="4"
+              aria-label="KIC fourth floor map"
+              aria-hidden="true"
+              style="display: none;"
+            >
+              <!-- Main green circulation/building shape -->
+              <path class="map-building" d="M30 115 H370 V173 H758 V365 H370 V620 H95 V365 H30 Z" />
+              <rect class="map-building" x="365" y="173" width="393" height="192" />
+
+              <g class="map-room" data-room-id="kic-412" tabindex="0" role="button" aria-label="412">
+                <rect x="40" y="125" width="63" height="125" />
+                <text x="71" y="189">412</text>
+              </g>
+              <g class="map-room" data-room-id="kic-411" tabindex="0" role="button" aria-label="411">
+                <rect x="104" y="125" width="63" height="125" />
+                <text x="135" y="189">411</text>
+              </g>
+              <g class="map-room" data-room-id="kic-410" tabindex="0" role="button" aria-label="410">
+                <rect x="168" y="125" width="63" height="125" />
+                <text x="199" y="189">410</text>
+              </g>
+              <g class="map-room" data-room-id="kic-409" tabindex="0" role="button" aria-label="409">
+                <rect x="232" y="125" width="63" height="125" />
+                <text x="263" y="189">409</text>
+              </g>
+              <g class="map-room" data-room-id="kic-408" tabindex="0" role="button" aria-label="408">
+                <rect x="296" y="125" width="63" height="125" />
+                <text x="327" y="189">408</text>
+              </g>
+              <g class="map-room" data-room-id="kic-413" tabindex="0" role="button" aria-label="413">
+                <rect x="40" y="285" width="127" height="70" />
+                <text x="101" y="323">413</text>
+              </g>
+              <g class="map-room" data-room-id="kic-414" tabindex="0" role="button" aria-label="414">
+                <rect x="167" y="285" width="65" height="70" />
+                <text x="199" y="323">414</text>
+              </g>
+              <g class="map-room" data-room-id="kic-h406" tabindex="0" role="button" aria-label="H406">
+                <rect x="104" y="366" width="126" height="85" />
+                <text x="167" y="416">H406</text>
+              </g>
+              <g class="map-room" data-room-id="kic-415" tabindex="0" role="button" aria-label="415">
+                <rect x="104" y="454" width="126" height="35" />
+                <text x="167" y="476">415</text>
+              </g>
+              <g class="map-room" data-room-id="kic-416" tabindex="0" role="button" aria-label="416">
+                <rect x="104" y="492" width="126" height="35" />
+                <text x="167" y="514">416</text>
+              </g>
+              <g class="map-room" data-room-id="kic-417" tabindex="0" role="button" aria-label="417">
+                <rect x="104" y="530" width="126" height="85" />
+                <text x="167" y="580">417</text>
+              </g>
+              <g class="map-room" data-room-id="kic-421" tabindex="0" role="button" aria-label="421">
+                <rect x="264" y="366" width="96" height="50" />
+                <text x="313" y="395">421</text>
+              </g>
+              <g class="map-room" data-room-id="kic-420" tabindex="0" role="button" aria-label="420">
+                <rect x="264" y="418" width="96" height="50" />
+                <text x="313" y="447">420</text>
+              </g>
+              <g class="map-room" data-room-id="kic-419" tabindex="0" role="button" aria-label="419">
+                <rect x="264" y="470" width="96" height="50" />
+                <text x="313" y="499">419</text>
+              </g>
+              <g class="map-room" data-room-id="kic-418" tabindex="0" role="button" aria-label="418">
+                <rect x="264" y="522" width="96" height="50" />
+                <text x="313" y="551">418</text>
+              </g>
+              <g class="map-room" data-room-id="kic-407" tabindex="0" role="button" aria-label="407">
+                <rect x="388" y="180" width="50" height="70" />
+                <text x="414" y="219">407</text>
+              </g>
+              <g class="map-room" data-room-id="kic-406" tabindex="0" role="button" aria-label="406">
+                <rect x="440" y="180" width="50" height="70" />
+                <text x="466" y="219">406</text>
+              </g>
+              <g class="map-room" data-room-id="kic-405" tabindex="0" role="button" aria-label="405">
+                <rect x="492" y="180" width="50" height="70" />
+                <text x="518" y="219">405</text>
+              </g>
+              <g class="map-room" data-room-id="kic-404" tabindex="0" role="button" aria-label="404">
+                <rect x="545" y="180" width="50" height="70" />
+                <text x="571" y="219">404</text>
+              </g>
+              <g class="map-room" data-room-id="kic-403" tabindex="0" role="button" aria-label="403">
+                <rect x="598" y="180" width="50" height="70" />
+                <text x="624" y="219">403</text>
+              </g>
+              <g class="map-room" data-room-id="kic-402" tabindex="0" role="button" aria-label="402">
+                <rect x="651" y="180" width="50" height="70" />
+                <text x="676" y="219">402</text>
+              </g>
+              <g class="map-room" data-room-id="kic-401" tabindex="0" role="button" aria-label="401">
+                <rect x="704" y="180" width="50" height="70" />
+                <text x="730" y="219">401</text>
+              </g>
+              <g class="map-room" data-room-id="kic-422" tabindex="0" role="button" aria-label="422">
+                <rect x="388" y="285" width="50" height="70" />
+                <text x="414" y="323">422</text>
+              </g>
+              <g class="map-room" data-room-id="kic-423" tabindex="0" role="button" aria-label="423">
+                <rect x="440" y="285" width="50" height="70" />
+                <text x="466" y="323">423</text>
+              </g>
+              <g class="map-room" data-room-id="kic-424" tabindex="0" role="button" aria-label="424">
+                <rect x="492" y="285" width="50" height="70" />
+                <text x="518" y="323">424</text>
+              </g>
+              <g class="map-room" data-room-id="kic-425" tabindex="0" role="button" aria-label="425">
+                <rect x="545" y="285" width="50" height="70" />
+                <text x="571" y="323">425</text>
+              </g>
+              <g class="map-room" data-room-id="kic-426" tabindex="0" role="button" aria-label="426">
+                <rect x="598" y="285" width="50" height="70" />
+                <text x="624" y="323">426</text>
+              </g>
+              <g class="map-room" data-room-id="kic-427" tabindex="0" role="button" aria-label="427">
+                <rect x="651" y="285" width="50" height="70" />
+                <text x="676" y="323">427</text>
+              </g>
+              <g class="map-room" data-room-id="kic-428" tabindex="0" role="button" aria-label="428">
+                <rect x="704" y="285" width="50" height="70" />
+                <text x="730" y="323">428</text>
+              </g>
+            </g>
+
+            <!-- KIC 5F -->
+            <g
+            class="floor-layout"
+              data-venue-layout="kic"
+              data-floor-layout="5"
+              aria-label="KIC fifth floor map"
+              aria-hidden="true"
+              style="display: none;"
+            >
+              <!-- Main green circulation/building shape -->
+              <path class="map-building" d="M30 115 H370 V173 H758 V365 H370 V620 H95 V365 H30 Z" />
+              <rect class="map-building" x="365" y="173" width="393" height="192" />
+
+              <g class="map-room" data-room-id="kic-519" tabindex="0" role="button" aria-label="519">
+                <rect x="40" y="125" width="63" height="125" />
+                <text x="71" y="189">519</text>
+              </g>
+              <g class="map-room" data-room-id="kic-518" tabindex="0" role="button" aria-label="518">
+                <rect x="104" y="125" width="63" height="125" />
+                <text x="135" y="189">518</text>
+              </g>
+              <g class="map-room" data-room-id="kic-517" tabindex="0" role="button" aria-label="517">
+                <rect x="168" y="125" width="63" height="125" />
+                <text x="199" y="189">517</text>
+              </g>
+              <g class="map-room" data-room-id="kic-516" tabindex="0" role="button" aria-label="516">
+                <rect x="232" y="125" width="63" height="125" />
+                <text x="263" y="189">516</text>
+              </g>
+              <g class="map-room" data-room-id="kic-r515" tabindex="0" role="button" aria-label="R515">
+                <rect x="296" y="125" width="63" height="125" />
+                <text x="327" y="189">R515</text>
+              </g>
+              <g class="map-room" data-room-id="kic-520" tabindex="0" role="button" aria-label="520">
+                <rect x="40" y="285" width="127" height="70" />
+                <text x="101" y="323">520</text>
+              </g>
+              <g class="map-room" data-room-id="kic-521" tabindex="0" role="button" aria-label="521">
+                <rect x="167" y="285" width="65" height="70" />
+                <text x="199" y="323">521</text>
+              </g>
+              <g class="map-room" data-room-id="kic-h508" tabindex="0" role="button" aria-label="H508">
+                <rect x="104" y="366" width="126" height="85" />
+                <text x="167" y="416">H508</text>
+              </g>
+              <g class="map-room" data-room-id="kic-h509" tabindex="0" role="button" aria-label="H509">
+                <rect x="104" y="454" width="126" height="161" />
+                <text x="167" y="535">H509</text>
+              </g>
+              <g class="map-room" data-room-id="kic-523" tabindex="0" role="button" aria-label="523">
+                <rect x="264" y="366" width="96" height="50" />
+                <text x="313" y="395">523</text>
+              </g>
+               <g class="map-room" data-room-id="kic-522" tabindex="0" role="button" aria-label="522">
+                <rect x="264" y="418" width="96" height="50" />
+                <text x="313" y="445">522</text>
+              </g>
+              <g class="map-room" data-room-id="kic-h510" tabindex="0" role="button" aria-label="H510">
+                <rect x="264" y="470" width="96" height="97" />
+                <text x="313" y="520">H510</text>
+              </g>
+              <g class="map-room" data-room-id="kic-r507" tabindex="0" role="button" aria-label="R507">
+                <rect x="388" y="180" width="50" height="70" />
+                <text x="414" y="219">R507</text>
+              </g>
+              <g class="map-room" data-room-id="kic-r506" tabindex="0" role="button" aria-label="R506">
+                <rect x="440" y="180" width="50" height="70" />
+                <text x="466" y="219">R506</text>
+              </g>
+              <g class="map-room" data-room-id="kic-r505" tabindex="0" role="button" aria-label="R505">
+                <rect x="492" y="180" width="50" height="70" />
+                <text x="518" y="219">R505</text>
+              </g>
+              <g class="map-room" data-room-id="kic-r504" tabindex="0" role="button" aria-label="R504">
+                <rect x="545" y="180" width="50" height="70" />
+                <text x="571" y="219">R504</text>
+              </g>
+              <g class="map-room" data-room-id="kic-r503" tabindex="0" role="button" aria-label="R503">
+                <rect x="598" y="180" width="50" height="70" />
+                <text x="624" y="219">R503</text>
+              </g>
+              <g class="map-room" data-room-id="kic-r502" tabindex="0" role="button" aria-label="R502">
+                <rect x="651" y="180" width="50" height="70" />
+                <text x="676" y="219">R502</text>
+              </g>
+              <g class="map-room" data-room-id="kic-r501" tabindex="0" role="button" aria-label="R501">
+                <rect x="704" y="180" width="50" height="70" />
+                <text x="730" y="219">R501</text>
+              </g>
+              <g class="map-room" data-room-id="kic-r514" tabindex="0" role="button" aria-label="R514">
+                <rect x="388" y="285" width="50" height="70" />
+                <text x="414" y="323">R514</text>
+              </g>
+              <g class="map-room" data-room-id="kic-r513" tabindex="0" role="button" aria-label="R513">
+                <rect x="440" y="285" width="50" height="70" />
+                <text x="466" y="323">R513</text>
+              </g>
+              <g class="map-room" data-room-id="kic-r512" tabindex="0" role="button" aria-label="R512">
+                <rect x="492" y="285" width="50" height="70" />
+                <text x="518" y="323">R512</text>
+              </g>
+              <g class="map-room" data-room-id="kic-r511" tabindex="0" role="button" aria-label="R511">
+                <rect x="545" y="285" width="50" height="70" />
+                <text x="571" y="323">R511</text>
+              </g>
+              <g class="map-room" data-room-id="kic-r510" tabindex="0" role="button" aria-label="R510">
+                <rect x="598" y="285" width="50" height="70" />
+                <text x="624" y="323">R510</text>
+              </g>
+              <g class="map-room" data-room-id="kic-r509" tabindex="0" role="button" aria-label="R509">
+                <rect x="651" y="285" width="50" height="70" />
+                <text x="676" y="323">R509</text>
+              </g>
+              <g class="map-room" data-room-id="kic-r508" tabindex="0" role="button" aria-label="R508">
+                <rect x="704" y="285" width="50" height="70" />
+                <text x="730" y="323">R508</text>
+              </g>
             </g>
           </svg>
         </div>

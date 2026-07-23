@@ -1,7 +1,247 @@
 "use strict";
 
-let currentVenue = "oic";
-let currentFloor = 3;
+/* ===========================
+   Project Settings
+=========================== */
+
+const START_VENUE = "oic";   
+const START_FLOOR = 1;      
+
+const DEFAULT_FLOORS = {
+    oic: 1,
+    kic: 1
+};
+
+const venueData = {
+  oic: {
+    name: "OIC",
+    floors: {
+      1: {
+        name: "1F",
+        rooms: [
+          {
+            id: "room-8",
+            name: "Room 8",
+            organisations: [
+              { name: "Welcome Festival Information Centre", category: "central" },
+              { name: "Student Support Desk", category: "central" }
+            ]
+          },
+          {
+            id: "room-7",
+            name: "Room 7",
+            organisations: [
+              { name: "OIC Athletics Club", category: "sports" },
+              { name: "Outdoor Sports Association", category: "sports" }
+            ]
+          },
+          {
+            id: "room-6",
+            name: "Room 6",
+            organisations: [
+              { name: "Performing Arts Society", category: "culture" },
+              { name: "Creative Expression Circle", category: "culture" }
+            ]
+          },
+          {
+            id: "room-5",
+            name: "Room 5",
+            organisations: [
+              { name: "Student Research Forum", category: "research-volunteering" },
+              { name: "Community Volunteer Network", category: "research-volunteering" }
+            ]
+          }
+        ]
+      },
+
+      3: {
+        name: "3F",
+        rooms: [
+          { id: "as368", name: "AS368", organisations: [{ name: "OIC Football Club", category: "sports" }] },
+          { id: "as358", name: "AS358", organisations: [{ name: "Illustration Society", category: "culture" }] },
+          { id: "as357", name: "AS357", organisations: [{ name: "Language Exchange Circle", category: "central" }] },
+          { id: "as365", name: "AS365", organisations: [{ name: "Basketball Club", category: "sports" }] },
+          { id: "as356", name: "AS356", organisations: [{ name: "International Volunteers", category: "central" }] },
+          { id: "as364", name: "AS364", organisations: [{ name: "Photography Society", category: "culture" }] },
+          { id: "as363", name: "AS363", organisations: [{ name: "Economics Study Group", category: "research-volunteering" }] },
+          { id: "as362", name: "AS362", organisations: [{ name: "Tennis Club", category: "sports" }] },
+          { id: "as361", name: "AS361", organisations: [{ name: "Community Support Group", category: "research-volunteering" }] },
+          { id: "ps-lounge", name: "PS Lounge", organisations: [{ name: "Student Support Team", category: "central" }] },
+          { id: "ac348", name: "AC348", organisations: [{ name: "Programming Circle", category: "research-volunteering" }] },
+          { id: "ac338", name: "AC338", organisations: [{ name: "Dance Club", category: "culture" }] },
+          { id: "ac337", name: "AC337", organisations: [{ name: "Badminton Club", category: "sports" }] },
+          { id: "ac345", name: "AC345", organisations: [{ name: "Debate Society", category: "research-volunteering" }] },
+          { id: "ac336", name: "AC336", organisations: [{ name: "Film Appreciation Circle", category: "culture" }] },
+          { id: "ac344", name: "AC344", organisations: [{ name: "Environmental Volunteers", category: "research-volunteering" }] },
+          { id: "ac343", name: "AC343", organisations: [{ name: "Table Tennis Club", category: "sports" }] },
+          { id: "ac342", name: "AC342", organisations: [{ name: "Research Association", category: "research-volunteering" }] },
+          { id: "ac341", name: "AC341", organisations: [{ name: "Traditional Music Circle", category: "culture" }] },
+          { id: "ba-house", name: "BA House", organisations: [{ name: "Business Administration Society", category: "central" }] },
+          { id: "an328", name: "AN328", organisations: [{ name: "Volleyball Club", category: "sports" }] },
+          { id: "an327", name: "AN327", organisations: [{ name: "Art Circle", category: "culture" }] },
+          { id: "an325", name: "AN325", organisations: [{ name: "Academic Research Society", category: "research-volunteering" }] },
+          { id: "an324", name: "AN324", organisations: [{ name: "Local Community Volunteers", category: "research-volunteering" }] },
+          { id: "an323", name: "AN323", organisations: [{ name: "Running Club", category: "sports" }] },
+          { id: "an322", name: "AN322", organisations: [{ name: "Literature Circle", category: "culture" }] },
+          {
+            id: "an321",
+            name: "AN321",
+            organisations: [
+              { name: "Organisation A", category: "research-volunteering" },
+              { name: "Organisation B", category: "research-volunteering" }
+            ]
+          },
+          { id: "an316", name: "AN316", organisations: [{ name: "Media Production Circle", category: "culture" }] },
+          { id: "student-lounge", name: "Student Lounge", organisations: [{ name: "Student Volunteer Network", category: "research-volunteering" }] },
+          { id: "ac330", name: "AC330", organisations: [{ name: "Technology Research Group", category: "research-volunteering" }] },
+          { id: "an310", name: "AN310", organisations: [{ name: "Sports Association", category: "sports" }] }
+        ]
+      }
+    }
+  },
+  kic: {
+    name: "KIC",
+    floors: {
+      1: { name: "1F",
+        rooms: [
+          { id: "kic-101", name: "101", organisations: [] },
+          { id: "kic-102", name: "102", organisations: [] },
+          { id: "kic-103", name: "103", organisations: [] },
+          { id: "kic-104", name: "104", organisations: [] },
+          { id: "kic-105", name: "105", organisations: [] },
+          { id: "kic-student-hall", name: "Student Hall", organisations: [] },
+          { id: "kic-open-cafe", name: "Open Cafe", organisations: [] },
+          { id: "kic-110", name: "110", organisations: [] },
+        ]
+      },
+      2: {
+        name: "2F",
+        rooms: [
+          { id: "kic-207", name: "207", organisations: [] },
+          { id: "kic-206", name: "206", organisations: [] },
+          { id: "kic-205", name: "205", organisations: [] },
+          { id: "kic-open-factory", name: "Open Factory", organisations: [] },
+          { id: "kic-202", name: "202", organisations: [] },
+          { id: "kic-201", name: "201", organisations: [] },
+          { id: "kic-204", name: "204", organisations: [] },
+          { id: "kic-203", name: "203", organisations: [] },
+          { id: "kic-h207", name: "H207", organisations: [] },
+          { id: "kic-213", name: "213", organisations: [] },
+          { id: "kic-212", name: "212", organisations: [] },
+          { id: "kic-211", name: "211", organisations: [] },
+          { id: "kic-210", name: "210", organisations: [] },
+          { id: "kic-208", name: "208", organisations: [] },
+          { id: "kic-209", name: "209", organisations: [] },
+          { id: "kic-r214", name: "R214", organisations: [] }
+        ]
+      },
+      3: { name: "3F",
+        rooms: [
+          { id: "kic-301", name: "301", organisations: [] },
+          { id: "kic-302", name: "302", organisations: [] },
+          { id: "kic-303", name: "303", organisations: [] },
+          { id: "kic-304", name: "304", organisations: [] },
+          { id: "kic-305", name: "305", organisations: [] },
+          { id: "kic-306", name: "306", organisations: [] },
+          { id: "kic-307", name: "307", organisations: [] },
+          { id: "kic-308", name: "308", organisations: [] },
+          { id: "kic-309", name: "309", organisations: [] },
+          { id: "kic-310", name: "310", organisations: [] },
+          { id: "kic-311", name: "311", organisations: [] },
+          { id: "kic-312", name: "312", organisations: [] },
+          { id: "kic-313", name: "313", organisations: [] },
+          { id: "kic-314", name: "314", organisations: [] },
+          { id: "kic-315", name: "315", organisations: [] },
+          { id: "kic-316", name: "316", organisations: [] },
+          { id: "kic-317", name: "317", organisations: [] },
+          { id: "kic-318", name: "318", organisations: [] },
+          { id: "kic-319", name: "319", organisations: [] },
+          { id: "kic-320", name: "320", organisations: [] },
+          { id: "kic-321", name: "321", organisations: [] },
+          { id: "kic-322", name: "322", organisations: [] },
+          { id: "kic-323", name: "323", organisations: [] },
+
+          { id: "kic-h302", name: "H302", organisations: [] },
+          { id: "kic-h303", name: "H303", organisations: [] },
+          { id: "kic-h304", name: "H304", organisations: [] },
+          { id: "kic-h305", name: "H305", organisations: [] },
+
+          { id: "kic-r324", name: "R324", organisations: [] },
+          { id: "kic-r325", name: "R325", organisations: [] },
+                  ]
+      },
+      4: { name: "4F",
+        rooms: [
+          { id: "kic-401", name: "401", organisations: [] },
+          { id: "kic-402", name: "402", organisations: [] },
+          { id: "kic-403", name: "403", organisations: [] },
+          { id: "kic-404", name: "404", organisations: [] },
+          { id: "kic-405", name: "405", organisations: [] },
+          { id: "kic-406", name: "406", organisations: [] },
+          { id: "kic-407", name: "407", organisations: [] },
+          { id: "kic-408", name: "408", organisations: [] },
+          { id: "kic-409", name: "409", organisations: [] },
+          { id: "kic-410", name: "410", organisations: [] },
+          { id: "kic-411", name: "411", organisations: [] },
+          { id: "kic-412", name: "412", organisations: [] },
+          { id: "kic-413", name: "413", organisations: [] },
+          { id: "kic-414", name: "414", organisations: [] },
+          { id: "kic-415", name: "415", organisations: [] },
+          { id: "kic-416", name: "416", organisations: [] },
+          { id: "kic-417", name: "417", organisations: [] },
+          { id: "kic-418", name: "418", organisations: [] },
+          { id: "kic-419", name: "419", organisations: [] },
+          { id: "kic-420", name: "420", organisations: [] },
+          { id: "kic-421", name: "421", organisations: [] },
+          { id: "kic-422", name: "422", organisations: [] },
+          { id: "kic-423", name: "423", organisations: [] },
+          { id: "kic-424", name: "424", organisations: [] },
+          { id: "kic-425", name: "425", organisations: [] },
+          { id: "kic-426", name: "426", organisations: [] },
+          { id: "kic-427", name: "427", organisations: [] },
+          { id: "kic-428", name: "428", organisations: [] },
+
+          { id: "kic-h406", name: "H406", organisations: [] },
+        ]
+      },
+      5: { name: "5F",
+        rooms: [
+          { id: "kic-516", name: "516", organisations: [] },
+          { id: "kic-517", name: "517", organisations: [] },
+          { id: "kic-518", name: "518", organisations: [] },
+          { id: "kic-519", name: "519", organisations: [] },
+          { id: "kic-520", name: "520", organisations: [] },
+          { id: "kic-521", name: "521", organisations: [] },
+          { id: "kic-522", name: "522", organisations: [] },
+          { id: "kic-523", name: "523", organisations: [] },
+
+          { id: "kic-r501", name: "R501", organisations: [] },
+          { id: "kic-r502", name: "R502", organisations: [] },
+          { id: "kic-r503", name: "R503", organisations: [] },
+          { id: "kic-r504", name: "R504", organisations: [] },
+          { id: "kic-r505", name: "R505", organisations: [] },
+          { id: "kic-r506", name: "R506", organisations: [] },
+          { id: "kic-r507", name: "R507", organisations: [] },
+          { id: "kic-r508", name: "R508", organisations: [] },
+          { id: "kic-r509", name: "R509", organisations: [] },
+          { id: "kic-r510", name: "R510", organisations: [] },
+          { id: "kic-r511", name: "R511", organisations: [] },
+          { id: "kic-r512", name: "R512", organisations: [] },
+          { id: "kic-r513", name: "R513", organisations: [] },
+          { id: "kic-r514", name: "R514", organisations: [] },
+          { id: "kic-r515", name: "R515", organisations: [] },
+
+          { id: "kic-h508", name: "H508", organisations: [] },
+          { id: "kic-h509", name: "H509", organisations: [] },
+          { id: "kic-h510", name: "H510", organisations: [] },
+        ]
+      }
+    }
+  }
+};
+
+let currentVenue = START_VENUE;
+let currentFloor = START_FLOOR;
 let activeCategory = null;
 let searchText = "";
 
@@ -12,7 +252,7 @@ const mapTransformLayer = document.querySelector("#mapTransformLayer");
 const searchInput = document.querySelector("#organisationSearch");
 const searchMessage = document.querySelector("#searchMessage");
 const venueTabs = document.querySelectorAll(".venue-tab");
-const floorButtons = document.querySelectorAll(".floor-button");
+let floorButtons = document.querySelectorAll(".floor-button");
 const categoryButtons = document.querySelectorAll(".category-button");
 const zoomInButton = document.querySelector("#zoomInButton");
 const zoomOutButton = document.querySelector("#zoomOutButton");
@@ -75,34 +315,20 @@ function getMatchingOrganisations(room) {
 
 function showCurrentFloorLayout() {
   floorLayouts.forEach((layout) => {
-    const layoutFloor =
-      Number(layout.dataset.floorLayout);
-
+    const layoutFloor = Number(layout.dataset.floorLayout);
+    const layoutVenue = layout.dataset.venueLayout || "oic";
     const isCurrent =
+      layoutVenue === currentVenue &&
       layoutFloor === currentFloor;
 
-    layout.classList.toggle(
-      "is-active",
-      isCurrent
-    );
-
-    /*
-      SVG <g> elements do not handle the HTML hidden attribute
-      consistently in every browser, especially Safari.
-      Setting display explicitly makes the switch reliable.
-    */
-    layout.style.display =
-      isCurrent ? "inline" : "none";
-
-    layout.setAttribute(
-      "aria-hidden",
-      String(!isCurrent)
-    );
+    layout.classList.toggle("is-active", isCurrent);
+    layout.style.display = isCurrent ? "inline" : "none";
+    layout.setAttribute("aria-hidden", String(!isCurrent));
   });
 
   floorMap.setAttribute(
     "aria-label",
-    `OIC ${currentFloor}F map`
+    `${venueData[currentVenue].name} ${currentFloor}F map`
   );
 }
 
@@ -111,7 +337,7 @@ function renderMap() {
 
   const currentLayout =
     floorMap.querySelector(
-      `[data-floor-layout="${currentFloor}"]`
+      `[data-venue-layout="${currentVenue}"][data-floor-layout="${currentFloor}"]`
     );
 
   if (!currentLayout) {
@@ -183,7 +409,17 @@ function updateSearchMessage() {
 
   if (!getCurrentFloorData()) {
     searchMessage.textContent =
-      "This map has not been added to the prototype yet.";
+      "This floor has not been added yet.";
+    return;
+  }
+
+  const visibleLayout = floorMap.querySelector(
+    `[data-venue-layout="${currentVenue}"][data-floor-layout="${currentFloor}"]`
+  );
+
+  if (!visibleLayout) {
+    searchMessage.textContent =
+      `${venueData[currentVenue].name} ${currentFloor}F map has not been added yet.`;
     return;
   }
 
@@ -273,7 +509,9 @@ function openRoomPopup(room) {
     const noResult = document.createElement("p");
     noResult.className = "no-result";
     noResult.textContent =
-      "No organisations in this room match the current criteria.";
+      filterIsActive
+        ? "No organisations in this room match the current criteria."
+        : "Organisation information has not been added yet.";
     popupOrganisationList.append(noResult);
   } else {
     organisationsToShow.forEach((organisation) => {
@@ -313,72 +551,84 @@ function closeRoomPopup() {
 let suppressNextRoomClick = false;
 
 floorMap.querySelectorAll(".map-room").forEach((roomElement) => {
+  function openThisRoom() {
+    const room = getRoomById(roomElement.dataset.roomId);
+
+    if (room) {
+      openRoomPopup(room);
+    }
+  }
+
+  roomElement.addEventListener("click", () => {
+    if (suppressNextRoomClick) {
+      suppressNextRoomClick = false;
+      return;
+    }
+
+    openThisRoom();
+  });
+
   roomElement.addEventListener("keydown", (event) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
-
-      const room = getRoomById(roomElement.dataset.roomId);
-
-      if (room) {
-        openRoomPopup(room);
-      }
+      openThisRoom();
     }
   });
 });
+
+function updateVenueTabs() {
+  venueTabs.forEach((tab) => {
+    const isActive = tab.dataset.venue === currentVenue;
+
+    tab.classList.toggle("is-active", isActive);
+    tab.setAttribute("aria-selected", String(isActive));
+  });
+}
+
+function renderFloorButtons() {
+  const floorSwitch = document.querySelector(".floor-switch");
+  const floors = Object.keys(venueData[currentVenue].floors).map(Number);
+
+  floorSwitch.replaceChildren();
+  floorSwitch.classList.toggle("has-five-floors", floors.length === 5);
+
+  floors.forEach((floor) => {
+    const button = document.createElement("button");
+    button.className = "floor-button";
+    button.type = "button";
+    button.dataset.floor = String(floor);
+    button.textContent = `${floor}F`;
+
+    const isActive = floor === currentFloor;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-selected", String(isActive));
+
+    button.addEventListener("click", () => {
+      currentFloor = floor;
+      renderFloorButtons();
+      resetMapView();
+      renderMap();
+    });
+
+    floorSwitch.append(button);
+  });
+
+  floorButtons = document.querySelectorAll(".floor-button");
+}
 
 venueTabs.forEach((tab) => {
   tab.addEventListener("click", () => {
     const requestedVenue = tab.dataset.venue;
 
-    if (requestedVenue !== "oic") {
-      searchMessage.textContent =
-        "The KIC map has not been added to this prototype yet.";
+    if (!venueData[requestedVenue]) {
       return;
     }
 
-    currentVenue = "oic";
+    currentVenue = requestedVenue;
+    currentFloor = DEFAULT_FLOORS[currentVenue];
 
-    venueTabs.forEach((otherTab) => {
-      const isActive = otherTab.dataset.venue === "oic";
-      otherTab.classList.toggle("is-active", isActive);
-      otherTab.setAttribute("aria-selected", String(isActive));
-    });
-
-    resetMapView();
-    renderMap();
-  });
-});
-
-floorButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    const requestedFloor =
-      Number(button.dataset.floor);
-
-    if (!venueData.oic.floors[requestedFloor]) {
-      searchMessage.textContent =
-        "This floor has not been added yet.";
-      return;
-    }
-
-    currentFloor =
-      requestedFloor;
-
-    floorButtons.forEach((otherButton) => {
-      const isActive =
-        Number(otherButton.dataset.floor) ===
-        currentFloor;
-
-      otherButton.classList.toggle(
-        "is-active",
-        isActive
-      );
-
-      otherButton.setAttribute(
-        "aria-selected",
-        String(isActive)
-      );
-    });
-
+    updateVenueTabs();
+    renderFloorButtons();
     resetMapView();
     renderMap();
   });
@@ -650,33 +900,13 @@ function endPointer(event) {
     }
   }
 
-  if (activePointers.size === 0) {
-  previousSinglePointer = null;
-  previousPinchDistance = null;
-  previousPinchCenter = null;
+  if (activePointers.size === 1) {
+    const remainingPointer = [...activePointers.values()][0];
 
-  mapViewport.classList.remove("is-dragging");
-
-  if (!mapWasDragged) {
-    const elementUnderPointer = document.elementFromPoint(
-      event.clientX,
-      event.clientY
-    );
-
-    const roomElement =
-      elementUnderPointer?.closest?.(".map-room");
-
-    if (roomElement) {
-      const room = getRoomById(
-        roomElement.dataset.roomId
-      );
-
-      if (room) {
-        openRoomPopup(room);
-      }
-    }
+    previousSinglePointer = remainingPointer;
+    previousPinchDistance = null;
+    previousPinchCenter = null;
   }
-}
 }
 
 mapViewport.addEventListener("pointerup", endPointer);
@@ -748,5 +978,7 @@ window.addEventListener("resize", () => {
   }, 100);
 });
 
+updateVenueTabs();
+renderFloorButtons();
 calculateInitialMapPosition();
 renderMap();

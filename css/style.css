@@ -690,7 +690,34 @@ img {
 }
 
 .floor-layout[data-floor-layout="1"] .map-room text {
-  font-size:6.5px;
+  font-size: 9px;
   font-weight: 700;
 }
 
+
+
+/* KIC five-floor selector */
+.floor-switch.has-five-floors {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  width: min(92%, 460px);
+}
+
+.floor-switch.has-five-floors .floor-button {
+  min-height: 44px;
+  padding: 4px 5px;
+  font-size: 1.1rem;
+}
+
+.map-static-room {
+  fill: #eeeeee;
+  stroke: #78b672;
+  stroke-width: 3px;
+}
+
+.floor-layout[data-venue-layout="kic"] .map-room text {
+  font-size: 13px;
+}
+
+.floor-layout[data-venue-layout="oic"][data-floor-layout="1"] .oic1-room-name {
+    font-size: 8px;
+}
