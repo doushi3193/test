@@ -327,6 +327,35 @@ function renderBoothStamp(boothElement, organisation) {
   boothElement.append(stamp);
 }
 
+function renderBoothLabels() {
+  const currentLayout = floorMap.querySelector(
+    `[data-floor-layout="${currentFloor}"]`
+  );
+
+  if (!currentLayout) return;
+
+  currentLayout
+    .querySelectorAll(".map-booth")
+    .forEach((boothElement) => {
+      const labelElement =
+        boothElement.querySelector(".booth-label");
+
+      if (!labelElement) return;
+
+      const booth =
+        getBoothById(boothElement.dataset.boothId);
+
+      if (!booth) {
+        labelElement.textContent = "";
+        labelElement.style.display = "";
+        return;
+      }
+
+      labelElement.textContent = booth.label || "";
+      labelElement.style.display = "";
+    });
+}
+
 function renderCollectedBoothStamps() {
   const currentLayout = floorMap.querySelector(
     `[data-floor-layout="${currentFloor}"]`
@@ -334,7 +363,7 @@ function renderCollectedBoothStamps() {
 
   if (!currentLayout) return;
 
-  // まず前の日付・前の表示状態のスタンプを全部消す
+  // 一度スタンプ表示をリセット
   currentLayout
     .querySelectorAll(".map-booth")
     .forEach((boothElement) => {
@@ -346,9 +375,17 @@ function renderCollectedBoothStamps() {
       if (existingStamp) {
         existingStamp.remove();
       }
+
+      // ラベルを一旦表示状態に戻す
+      const labelElement =
+        boothElement.querySelector(".booth-label");
+
+      if (labelElement) {
+        labelElement.style.display = "";
+      }
     });
 
-  // 現在の日付で実際に取得済みのものだけ描き直す
+  // 現在の日付で取得済みのスタンプだけ表示
   getCurrentBooths().forEach((booth) => {
     const organisation = booth.organisation;
 
@@ -365,6 +402,14 @@ function renderCollectedBoothStamps() {
     if (!boothElement) return;
 
     boothElement.classList.add("is-stamped");
+
+    // スタンプ取得済みならラベルを消す
+    const labelElement =
+      boothElement.querySelector(".booth-label");
+
+    if (labelElement) {
+      labelElement.style.display = "none";
+    }
 
     renderBoothStamp(
       boothElement,
@@ -408,6 +453,10 @@ function showCurrentFloorLayout() {
 
 function renderMap() {
   showCurrentFloorLayout();
+
+  if (currentFloor === 4) {
+    renderBoothLabels();
+  }
 
   const currentLayout =
     floorMap.querySelector(
