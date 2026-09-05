@@ -1,12 +1,15 @@
 "use strict";
 
 const venueData = {
-  oic: {
-    name: "OIC",
+  // =========================
+  // 10/03
+  // =========================
+  first: {
+    name: "10/03",
 
     floors: {
       1: {
-        name: "1F",
+        name: "H 2F",
 
         rooms: [
           {
@@ -20,44 +23,150 @@ const venueData = {
                 category: "central",
                 website: "https://example.com",
                 stampToken: "room-8-information-centre"
-              }
-            ]
-          }
-        ]
-      },
-
-      3: {
-        name: "3F",
-
-        rooms: [
-          {
-            id: "student-lounge",
-            name: "Student Lounge",
-
-            organisations: [
-              {
-                id: "student-lounge-gpo",
-                name: "Globalisation Promotion Office",
-                category: "central",
-                website: "https://ritsumeikan-circle.net/globalization-promotion-office/",
-                stampToken: "student-lounge-gpo"
+                
               }
             ]
           },
 
           {
-            id: "an321",
-            name: "AN321",
+            id: "room-7",
+            name: "Room 7",
+
+            organisations: [
+              // 10/03 organisations here
+            ]
+          },
+
+          {
+            id: "room-6",
+            name: "Room 6",
+
+            organisations: [
+              // 10/03 organisations here
+            ]
+          },
+
+          {
+            id: "room-5",
+            name: "Room 5",
+
+            organisations: [
+              // 10/03 organisations here
+            ]
+          }
+        ]
+      },
+
+
+      4: {
+        name: "B Hall",
+
+        booths: [
+          {
+           id: "a-1",
+           label: "A-1",
+           
+           organisation: {
+            id: "first-a-1",
+            name: "a",
+            category: "culture",
+            website: "#",
+            stampToken: "first-a-1",
+            stampImage: "images/stamps/a.png"
+           }
+          },
+
+          {
+           id: "centralPart",
+           label: "Central Part",
+           
+           organisation: {
+            id: "first-centralPart",
+            name: "Central Part",
+            category: "central",
+            website: "https://www.ritsumei.club/about/",
+            stampToken: "first-centralPart",
+            stampImage: "images/stamps/centralPart.png"
+           }
+          }
+        ]
+      }
+    }
+  },
+
+
+  // =========================
+  // 10/05
+  // =========================
+  second: {
+    name: "10/05",
+
+    floors: {
+      1: {
+        name: "H 2F",
+
+        rooms: [
+          {
+            id: "room-8",
+            name: "Room 8",
 
             organisations: [
               {
-                id: "an321-international-exchange",
-                name: "International Exchange Circle",
-                category: "research-volunteering",
-                website: "https://example.com/international-exchange",
-                stampToken: "an321-international-exchange"
+                id: "room-8-some-other-organisation",
+                name: "Different Organisation",
+                category: "culture",
+                website: "https://example.com",
+                stampToken: "room-8-some-other-organisation"
               }
             ]
+          },
+
+          {
+            id: "room-7",
+            name: "Room 7",
+
+            organisations: [
+              // 10/05 organisations here
+            ]
+          },
+
+          {
+            id: "room-6",
+            name: "Room 6",
+
+            organisations: [
+              // 10/05 organisations here
+            ]
+          },
+
+          {
+            id: "room-5",
+            name: "Room 5",
+
+            organisations: [
+              // 10/05 organisations here
+            ]
+          }
+        ]
+      },
+
+
+      4: {
+        name: "B Hall",
+
+        booths: [
+          {
+           id: "a-1",
+           label: "A-1",
+           
+           organisation: {
+            id: "first-a-1",
+            name: "a",
+            category: "culture",
+            website: "#",
+            stampToken: "first-a-1",
+            stampImage: "images/stamps/a.png"
+           }
           }
         ]
       }

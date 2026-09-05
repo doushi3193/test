@@ -191,7 +191,8 @@ img {
 .floor-switch {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  width: min(54%, 280px);
+  width: calc(100% - 40px);
+  max-width: 420px;
   margin: 0 auto 14px;
   padding: 6px;
   border-radius: 23px;
@@ -206,7 +207,7 @@ img {
   border-radius: 18px;
   background: transparent;
   color: #7e7e7e;
-  font-size: 1.65rem;
+  font-size: 1.25rem;
   font-weight: 800;
   line-height: 1;
 }
@@ -326,6 +327,76 @@ img {
 .map-room:focus-visible rect {
   stroke: #111111;
   stroke-width: 5px;
+}
+
+/* =========================
+   B HALL
+========================= */
+
+/* B Hall全体の土台 */
+.b-hall-building {
+  fill: #78b672;
+}
+
+
+/* クリックできる1つのブース */
+.map-booth {
+  cursor: pointer;
+  outline: none;
+}
+
+
+/* ブース全体を表す大きい四角 */
+.map-booth .booth-area {
+  fill: #ffffff;
+  stroke: #78b672;
+  stroke-width: 3px;
+}
+
+/* スタンプ取得後に団体名を表示する場所 */
+.map-booth .booth-label {
+  fill: #111111;
+  font-family: Arial, "Noto Sans JP", sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-anchor: middle;
+  pointer-events: none;
+}
+
+
+/* 押している間 */
+.map-booth:active .booth-area,
+.map-booth.is-pressed .booth-area {
+  filter: brightness(0.88);
+}
+
+
+/* キーボード操作時のフォーカス */
+.map-booth:focus-visible .booth-area {
+  stroke: #111111;
+  stroke-width: 5px;
+}
+
+.b-hall-content {
+  transform: translate(20px, 90px) scale(0.8);
+  transform-origin: 0 0;
+}
+
+.map-booth.has-match .booth-area {
+  fill: var(--booth-highlight-color, var(--red));
+  stroke: var(--booth-highlight-color, var(--red));
+}
+
+.map-booth.has-match .booth-label {
+  fill: #ffffff;
+}
+
+.map-booth.is-dimmed .booth-area {
+  opacity: 0.72;
+}
+
+.map-booth.is-dimmed .booth-label {
+  opacity: 0.62;
 }
 
 /* =========================
@@ -681,10 +752,6 @@ img {
   font-weight: 700;
 }
 
-/* ===========================
-   編集済みセクション①↓
-=========================== */
-
 /* KIC five-floor selector */
 .floor-switch.has-five-floors {
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -710,6 +777,78 @@ img {
 .floor-layout[data-venue-layout="oic"][data-floor-layout="1"] .oic1-room-name {
     font-size: 8px;
 }
-/* ===========================
-   編集済みセクション①↑
-=========================== */
+
+.organisation-popup {
+  position: relative;
+  width: min(100%, 390px);
+  padding: 30px 22px 22px;
+  border-radius: 24px;
+  background: #eeeeee;
+  box-shadow: 0 16px 42px rgb(0 0 0 / 25%);
+}
+
+.popup-room-name {
+  margin: 0 0 24px;
+  color: #666666;
+  font-weight: 700;
+}
+
+.popup-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 54px;
+  padding: 12px 16px;
+  border: 0;
+  border-radius: 14px;
+  font-weight: 800;
+  line-height: 1.25;
+  text-align: center;
+  text-decoration: none;
+}
+
+.popup-link-button {
+  color: #ffffff;
+  background: var(--green-dark);
+}
+
+.nfc-button {
+  margin-top: 12px;
+  color: #ffffff;
+  background: #1769aa;
+}
+
+.nfc-button.is-reading {
+  background: #845c16;
+}
+
+.nfc-button:disabled {
+  cursor: default;
+  opacity: 0.65;
+}
+
+.nfc-status {
+  min-height: 1.4em;
+  margin: 15px 3px 0;
+  color: #555555;
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+.nfc-status.is-error {
+  color: var(--danger);
+}
+
+.nfc-status.is-success {
+  color: var(--green-deep);
+  font-weight: 700;
+}
+
+.popup-stamp-image {
+  display: block;
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  margin: 16px auto;
+}
