@@ -154,19 +154,22 @@ function openOrganisationPopup(booth) {
   popupBoothName.textContent =
     `B Hall / ${booth.label}`;
 
-  if (selectedOrganisation.stampImage) {
-  popupStampImage.src =
-    selectedOrganisation.stampImage;
+  if (
+        selectedOrganisation.stampImage &&
+        hasCollectedStamp(selectedOrganisation.id)
+      ) {
+        popupStampImage.src =
+          selectedOrganisation.stampImage;
 
-  popupStampImage.alt =
-    `${selectedOrganisation.name}のスタンプ`;
+        popupStampImage.alt =
+          `${selectedOrganisation.name}のスタンプ`;
 
-  popupStampImage.hidden = false;
-} else {
-  popupStampImage.src = "";
-  popupStampImage.alt = "";
-  popupStampImage.hidden = true;
-}
+        popupStampImage.hidden = false;
+      } else {
+        popupStampImage.src = "";
+        popupStampImage.alt = "";
+        popupStampImage.hidden = true;
+      }
 
   organisationWebsiteLink.href =
     selectedOrganisation.website;
@@ -325,25 +328,48 @@ function renderBoothStamp(boothElement, organisation) {
 }
 
 function renderCollectedBoothStamps() {
+  const currentLayout = floorMap.querySelector(
+    `[data-floor-layout="${currentFloor}"]`
+  );
+
+  if (!currentLayout) return;
+
+  // まず前の日付・前の表示状態のスタンプを全部消す
+  currentLayout
+    .querySelectorAll(".map-booth")
+    .forEach((boothElement) => {
+      boothElement.classList.remove("is-stamped");
+
+      const existingStamp =
+        boothElement.querySelector(".booth-stamp");
+
+      if (existingStamp) {
+        existingStamp.remove();
+      }
+    });
+
+  // 現在の日付で実際に取得済みのものだけ描き直す
   getCurrentBooths().forEach((booth) => {
     const organisation = booth.organisation;
 
     if (!organisation) return;
 
-    const boothElement = floorMap.querySelector(
+    if (!hasCollectedStamp(organisation.id)) {
+      return;
+    }
+
+    const boothElement = currentLayout.querySelector(
       `[data-booth-id="${CSS.escape(booth.id)}"]`
     );
 
     if (!boothElement) return;
 
-    if (hasCollectedStamp(organisation.id)) {
-      boothElement.classList.add("is-stamped");
+    boothElement.classList.add("is-stamped");
 
-      renderBoothStamp(
-        boothElement,
-        organisation
-      );
-    }
+    renderBoothStamp(
+      boothElement,
+      organisation
+    );
   });
 }
 

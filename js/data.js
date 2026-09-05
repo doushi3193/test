@@ -167,6 +167,20 @@ const venueData = {
             stampToken: "first-a-1",
             stampImage: "images/stamps/a.png"
            }
+          },
+        
+          {
+           id: "centralPart",
+           label: "Central Part",
+           
+           organisation: {
+            id: "second-centralPart",
+            name: "Central Part",
+            category: "central",
+            website: "https://www.ritsumei.club/about/",
+            stampToken: "second-centralPart",
+            stampImage: "images/stamps/centralPart.png"
+           }
           }
         ]
       }
