@@ -9,7 +9,7 @@ const venueData = {
 
     floors: {
       1: {
-        name: "H 2F",
+        name: "A 1F",
 
         rooms: [
           {
@@ -103,7 +103,7 @@ const venueData = {
 
     floors: {
       1: {
-        name: "H 2F",
+        name: "A 1F",
 
         rooms: [
           {
