@@ -478,12 +478,13 @@ function renderMap() {
     searchText !== "" ||
     activeCategory !== null;
 
-  const categoryColours = {
+    const categoryColours = {
     central: "#A10000",
     sports: "#1E6BC1",
     culture: "#EAAE14",
-    "research-volunteering": "#C4A3CB"
-  };
+    "research-volunteering": "#C4A3CB",
+    international: "#E879A9"
+    };
 
   roomElements.forEach((roomElement) => {
     const room =
